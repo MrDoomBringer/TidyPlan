@@ -1,0 +1,10 @@
+#This file is a list of things we don't want committed to the repository, 
+#and so will be ignored by git. Useful for directories like caches that only
+#are meant to be on a single computer
+
+#Ignore python cache directories everywhere
+**/__pycache__
+
+#ignore any python venv directories. It's bad practice to ship these with 
+#a repository (which I just recently learned!)
+/**venv
