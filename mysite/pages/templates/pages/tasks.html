@@ -1,0 +1,11 @@
+{% extends "homepage/base.html"%}
+{%block title %}View Tasks{% endblock %}
+
+{% block content %}
+	<h1>{{tsk_list.name_text}}</h1>
+	<ul>
+		{% for task in tsk_list.task_set.all %}
+			<li>{{task.description_text}}</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
