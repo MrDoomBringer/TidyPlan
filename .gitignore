@@ -8,3 +8,4 @@
 #ignore any python venv directories. It's bad practice to ship these with 
 #a repository (which I just recently learned!)
 /**venv
+/**vscode
