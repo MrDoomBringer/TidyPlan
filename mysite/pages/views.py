@@ -1,9 +1,11 @@
+from django.http import HttpResponse
+from .models import ToDoList
+from .forms import CreateNewList
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-
 from .models import User, Task
 
 
@@ -30,3 +32,16 @@ class CalendarView(generic.ListView):
 
 def tos(request):
     return HttpResponse("Terms of Service")
+
+def create(response):
+	if response.method == "POST":
+		form = CreateNewList(response.POST)
+		if form.is_valid():
+			n = form.cleaned_data["name"]
+			t = ToDoList(name=n)
+			t.save()
+
+		return HttpResponseRedirect("/%i" %t.id)
+	else:
+		form = CreateNewList()
+	return render(response, "pages/create.html", {"form": form})
