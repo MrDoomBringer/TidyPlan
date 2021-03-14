@@ -8,4 +8,7 @@
 #ignore any python venv directories. It's bad practice to ship these with 
 #a repository (which I just recently learned!)
 /**venv
+#Ignore the .vscode directory
 /**vscode
+#Ignore database files (These can contain usernames and passwords! Should never ship with a repo, especially a public open-source one lol)
+*.sqlite3
