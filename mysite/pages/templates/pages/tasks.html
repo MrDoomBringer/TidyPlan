@@ -2,10 +2,14 @@
 {%block title %}View Tasks{% endblock %}
 
 {% block content %}
+	{% if tsk_list %}
 	<h1>{{tsk_list.name_text}}</h1>
 	<ul>
 		{% for task in tsk_list %}
 			<li>{{task.description_text}}</li>
 		{% endfor %}
 	</ul>
+	{% else %}
+	<p> No tasks are available to view </p>
+	{% endif %}
 {% endblock %}
