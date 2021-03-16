@@ -1,0 +1,154 @@
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway regular.ttf') format("truetype");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway italic.ttf') format("truetype");
+	font-weight: normal;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 100.ttf') format("truetype");
+	font-weight: 100;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 100italic.ttf') format("truetype");
+	font-weight: 100;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 200.ttf') format("truetype");
+	font-weight: 200;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 200italic.ttf') format("truetype");
+	font-weight: 200;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 300.ttf') format("truetype");
+	font-weight: 300;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 300italic.ttf') format("truetype");
+	font-weight: 300;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 400.ttf') format("truetype");
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 400italic.ttf') format("truetype");
+	font-weight: 400;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 500.ttf') format("truetype");
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 500italic.ttf') format("truetype");
+	font-weight: 500;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 600.ttf') format("truetype");
+	font-weight: 600;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 600italic.ttf') format("truetype");
+	font-weight: 600;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 700.ttf') format("truetype");
+	font-weight: 700;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 700italic.ttf') format("truetype");
+	font-weight: 700;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 800.ttf') format("truetype");
+	font-weight: 800;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 800italic.ttf') format("truetype");
+	font-weight: 800;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 900.ttf') format("truetype");
+	font-weight: 900;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: local('Raleway'), url('./fonts/Raleway 900italic.ttf') format("truetype");
+	font-weight: 900;
+	font-style: italic;
+}
+
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	font-family: Raleway;
+	font-weight: 300;
+	font-size: 15px;
+	margin: 15px;
+}
+
+.task_preview {
+	background: #C8C8CF;
+    padding: 10px;
+    margin: 0px 0px 15px 0px;
+    width: 350px;
+}
+
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.task_create {
+    margin: 10px 0px 0px 0px;
+}
