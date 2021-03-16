@@ -3,13 +3,24 @@
 
 {% block content %}
 	{% if tsk_list %}
-	<h1>{{tsk_list.name_text}}</h1>
-	<ul>
-		{% for task in tsk_list %}
-			<li>{{task.description_text}}</li>
-		{% endfor %}
-	</ul>
+		<h1>{{tsk_list.name_text}}</h1>
+		
+			{% for task in tsk_list %}
+				<div>
+					{{task.description_text}}
+					<form method = "post" action = "">
+						{% csrf_token %}
+						<input type="hidden", name='deleted_task', value="{{task.task_id}}">
+						<input type="submit", name='delete_task' value="[Delete]">
+					</form>
+				</div>
+			{% endfor %}
+		
 	{% else %}
-	<p> No tasks are available to view </p>
+		<p> No tasks are available to view </p>
 	{% endif %}
+	<form method = "post" action = "">
+		{% csrf_token %}
+		<input type="submit", name='new_task', value = "New Task">
+	</form>
 {% endblock %}
