@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html> 
-<head> 
-	<title>{% block title %}TidyPlan{% endblock %}</title>
-</head>
-<body>
-	<div name_text="content", name = "content">
-		{% block content %}
-		{% endblock %}
-	</div>
-</body>
+	<head> 
+		{% load static %}
+
+		<link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}">
+		<title>{% block title %}TidyPlan{% endblock %}</title>
+	</head>
+	<body>
+		<a href="/">Home</a>
+		<a href="/calendar">Calendar</a>
+		<a href="/create">Todo Lists</a>
+		<div name_text="content", name = "content">
+			{% block content %}
+			{% endblock %}
+		</div>
+	</body>
 </html>
