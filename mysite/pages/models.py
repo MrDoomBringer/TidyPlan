@@ -21,7 +21,7 @@ class Task(models.Model):
     complete = models.BooleanField(default=False)
     todolist = models.ForeignKey(ToDoList, on_delete=models.CASCADE)
     description_text = models.CharField(default="Untitled Task", max_length=200)
-    due_date = models.DateTimeField('Due Date', default=timezone.now())
+    due_date = models.DateTimeField('Due Date', default=timezone.now)
     time_estimate = models.IntegerField(default=0)
     task_id = models.CharField(default="default_id", max_length=200)
     def __str__(self):

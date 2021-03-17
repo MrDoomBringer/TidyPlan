@@ -2,14 +2,17 @@
 <html> 
 	<head> 
 		{% load static %}
-
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}">
 		<title>{% block title %}TidyPlan{% endblock %}</title>
 	</head>
 	<body>
 		<a href="/">Home</a>
 		<a href="/calendar">Calendar</a>
-		<a href="/create">Todo Lists</a>
+		<a href="/create">TodoLists</a>
 		<div name_text="content", name = "content">
 			{% block content %}
 			{% endblock %}
