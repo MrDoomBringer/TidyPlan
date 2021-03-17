@@ -6,8 +6,9 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import User, Task, WebsiteMeta
+from .models import User, Task, WebsiteMeta, Course
 
+import random
 
 def index(request):
 	template_name = 'pages/home.html'
@@ -27,21 +28,35 @@ def calendar(request):
 	if (request.method == "POST"):
 		if ('new_task' in request.POST): #If the form that we submitted has the name 'new_task'
 			check_websitemeta()
-			td = ToDoList()
-			td.save()
 			t = Task()
-			t.description_text = f'Task number [{total_tasks_ever_made()}]'
-			t.todolist = td
-			t.task_id=timezone.now()
+			t.description_text = f'Untitled Task {total_tasks_ever_made()}'
 			t.save()
 			total_tasks_ever_made(increment=1)
 
 		if ('delete_task' in request.POST): #If the form that we submitted has the name 'delete_task'
 			id_to_delete = request.POST['deleted_task'] #Get the ID of the task. This is stored in a input tag of type='hidden'
-			Task.objects.filter(task_id=id_to_delete).delete()
-	
+			Task.objects.filter(id=id_to_delete).delete()
+
+	course_list = Course.objects.all()
 	tsk_list = Task.objects.filter(due_date__lte=timezone.now()).order_by('-due_date')
-	return render(request, 'pages/tasks.html', {'tsk_list': tsk_list})
+	return render(request, 'pages/tasks.html', {'tsk_list': tsk_list, 'course_list': course_list})
+
+def courses(request):
+	if (request.method == "POST"):
+		if ('new_course' in request.POST): #If the form that we submitted has the name 'new_task'
+			check_websitemeta()
+			c = Course()
+			c.name = f'Untitled Course {total_courses_ever_made()}'
+			c.color = f"hsl({random.randint(0, 360)}, {random.randint(25, 95)}%, {random.randint(85, 95)}%"
+			c.save()
+			total_courses_ever_made(increment=1)
+
+		if ('delete_course' in request.POST): #If the form that we submitted has the name 'delete_task'
+			id_to_delete = request.POST['deleted_course'] #Get the ID of the task. This is stored in a input tag of type='hidden'
+			Course.objects.filter(id=id_to_delete).delete()
+
+	course_list = Course.objects.all()
+	return render(request, 'pages/courses.html', {'course_list': course_list})
 
 def tos(request):
 	return HttpResponse("Terms of Service")
@@ -78,3 +93,10 @@ def total_tasks_ever_made(increment = 0):
 	wm.total_tasks_created += increment
 	wm.save()
 	return wm.total_tasks_created
+
+def total_courses_ever_made(increment = 0):
+	check_websitemeta() #Make sure we have a websitemeta object to work with
+	wm = WebsiteMeta.objects.all()[0] #Get the first (and only) WebsiteMeta object from our database
+	wm.total_courses_created += increment
+	wm.save()
+	return wm.total_courses_created

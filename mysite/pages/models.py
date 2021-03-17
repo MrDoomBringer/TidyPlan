@@ -1,5 +1,4 @@
 import datetime
-
 from django.db import models
 from django.utils import timezone
 import datetime
@@ -17,16 +16,23 @@ class ToDoList(models.Model):
 	def __str__(self):
 		return self.name
 
+class Course(models.Model):
+    name = models.CharField(default = "untitled course", max_length=25)
+    color = models.CharField(default = "#F6F6F6", max_length=7)
+    def __str__(self):
+        return self.name
+
 class Task(models.Model):
     complete = models.BooleanField(default=False)
-    todolist = models.ForeignKey(ToDoList, on_delete=models.CASCADE)
+    todo_list = models.ForeignKey(ToDoList, null=True, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, related_name="courses", null=True, on_delete=models.CASCADE)
     description_text = models.CharField(default="Untitled Task", max_length=200)
     due_date = models.DateTimeField('Due Date', default=timezone.now)
     time_estimate = models.IntegerField(default=0)
-    task_id = models.CharField(default="default_id", max_length=200)
     def __str__(self):
-        return self.description_text 
+        return self.description_text
 
 class WebsiteMeta(models.Model):		
     total_tasks_created = models.IntegerField(default = 0)
+    total_courses_created = models.IntegerField(default = 0)
 

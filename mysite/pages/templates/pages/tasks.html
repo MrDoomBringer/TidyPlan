@@ -1,5 +1,5 @@
 {% extends "./base.html"%}
-{%block title %}View Tasks{% endblock %}
+{%block title %}Tasks{% endblock %}
 
 {% block content %}
 	<form method = "post">
@@ -27,7 +27,7 @@
 							<form method = "post">
 								{% csrf_token %}
 								<!--Hidden input only used to send extra data (the task's ID). Can't send the data along with the delete_task button for some reason-->
-								<input type="hidden", name='deleted_task', value="{{task.task_id}}">
+								<input type="hidden", name='deleted_task', value="{{task.id}}">
 								<!--Edit and delete buttons-->
 								<button class = "taskbutton"><i class="material-icons">edit</i></button>
 								<button name='delete_task', type="submit", class = "taskbutton"><i class="material-icons">delete</i></button>
@@ -41,8 +41,10 @@
 		<p> No tasks are available to view </p>
 	{% endif %}
 	<div class = "filtercontainer">
-		Filter by course <!--TODO: Make this loop through all the available course tags, add functionality-->
-		<button class = "coursefilterbutton">CHEM101</button>
+		Filter by course
+		{% for course in course_list %}
+		<button class = "coursefilterbutton", style="background-color:{{course.color}}">{{course.name}}</button>
+		{% endfor %}
 	</div>
 </div>
 

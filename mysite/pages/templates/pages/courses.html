@@ -1,0 +1,43 @@
+{% extends "./base.html"%}
+{%block title %}Courses{% endblock %}
+
+{% block content %}
+	<h1>{{tsk_list.name_text}}</h1>
+	<div class = "courselist">
+		<form method = "post">
+			{% csrf_token %}<!--Django thing to prevent cross-site attacks. Probably unneccessary-->
+			<button class = "coursebutton addcoursebutton" type="submit", name='new_course'>
+				Add Course
+			</button>
+		</form>
+	</div>
+	{% if course_list %} <!--If there's any data in the task list (tsk_list is sent here by python in the views.py calendar function's return statement)-->
+	<div class = "courselist">
+		<!--date_group is a tuple with 2 elements: 'grouper' and 'list'. Grouper is the date we grouped by, and list is the rest of the task's model info-->
+			{% for task in course_list %} <!--Loop through all the tasks in the date group-->
+			<div class = "courseentry" style="background-color:{{task.color}}">
+				<div class = "coursecontentblock">
+					<div class = "coursename">{{task.name}}</div>
+					<div class = "courseprofessor">Professor Bruh</div>
+				</div>
+
+				<div class = "coursebuttongroup">
+					<form method = "post">
+						{% csrf_token %}<!--Django thing to prevent cross-site attacks. Probably unneccessary-->
+						<!--Hidden input only used to send extra data (the task's ID). Can't send the data along with the delete_task button for some reason-->
+						<input type="hidden", name='deleted_course', value="{{task.id}}">
+						<!--Edit and delete buttons-->
+						<button class = "coursebutton"><i class="material-icons">edit</i></button>
+						<button name='delete_course', type="submit", class = "coursebutton"><i class="material-icons">delete</i></button>
+					</form>
+				</div>
+			</div>
+		{% endfor %}
+
+		</div>
+	{% else %}
+		<p> No courses are available to view </p>
+	{% endif %}
+</div>
+
+{% endblock %}
