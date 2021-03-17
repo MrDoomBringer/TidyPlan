@@ -38,6 +38,7 @@ def calendar(request):
 
 		if ('delete_task' in request.POST): #If the form that we submitted has the name 'delete_task'
 			id_to_delete = request.POST['deleted_task'] #Get the ID of the task. This is stored in a input tag of type='hidden'
+			print(id_to_delete)
 			Task.objects.filter(task_id=id_to_delete).delete()
 	
 	tsk_list = Task.objects.filter(due_date__lte=timezone.now()).order_by('-due_date')

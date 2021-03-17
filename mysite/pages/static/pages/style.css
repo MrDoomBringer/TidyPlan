@@ -1,154 +1,90 @@
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway regular.ttf') format("truetype");
-	font-weight: normal;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway italic.ttf') format("truetype");
-	font-weight: normal;
-	font-style: italic;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 100.ttf') format("truetype");
-	font-weight: 100;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 100italic.ttf') format("truetype");
-	font-weight: 100;
-	font-style: italic;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 200.ttf') format("truetype");
-	font-weight: 200;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 200italic.ttf') format("truetype");
-	font-weight: 200;
-	font-style: italic;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 300.ttf') format("truetype");
-	font-weight: 300;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 300italic.ttf') format("truetype");
-	font-weight: 300;
-	font-style: italic;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 400.ttf') format("truetype");
-	font-weight: 400;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 400italic.ttf') format("truetype");
-	font-weight: 400;
-	font-style: italic;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 500.ttf') format("truetype");
-	font-weight: 500;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 500italic.ttf') format("truetype");
-	font-weight: 500;
-	font-style: italic;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 600.ttf') format("truetype");
-	font-weight: 600;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 600italic.ttf') format("truetype");
-	font-weight: 600;
-	font-style: italic;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 700.ttf') format("truetype");
-	font-weight: 700;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 700italic.ttf') format("truetype");
-	font-weight: 700;
-	font-style: italic;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 800.ttf') format("truetype");
-	font-weight: 800;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 800italic.ttf') format("truetype");
-	font-weight: 800;
-	font-style: italic;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 900.ttf') format("truetype");
-	font-weight: 900;
-	font-style: normal;
-}
-@font-face {
-	font-family: 'Raleway';
-	src: local('Raleway'), url('./fonts/Raleway 900italic.ttf') format("truetype");
-	font-weight: 900;
-	font-style: italic;
-}
-
-
-html {
-	height: 100%;
-}
 
 body {
-	height: 100%;
+	background-color: #FEFEFE;
+	font-family: "Open Sans";
+}
+
+h2 {	
 	font-family: Raleway;
-	font-weight: 300;
-	font-size: 15px;
-	margin: 15px;
+	color: black;
+	font-size: 2em;
 }
 
-.task_preview {
-	background: #C8C8CF;
-    padding: 10px;
-    margin: 0px 0px 15px 0px;
-    width: 350px;
+.taskbutton {
+	border: none;
+	text-align: center;
+	padding:8px;
 }
 
-a {
-	color: inherit;
-	text-decoration: inherit;
+.addtaskbutton {
+	background-color:rgba(0,0,0,0.0);
+	border: none;
+	padding:1%;
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
+.coursefilterbutton {
+	background-color: red;
+	border: none;
+	display:block;
 }
 
-.task_create {
-    margin: 10px 0px 0px 0px;
+button:hover {
+	color: blue;
+}
+
+.tasklist{ 
+	width: 50vw;
+	color: #656565;
+	position: absolute;
+	top: 5%;
+	right: 5%;
+}
+
+.taskdate{ 
+	color: #656565;
+	text-align: left; 
+	margin-bottom:-20px;
+}
+
+.taskentry{
+	width: 100%;
+	min-height: 5vh;
+	background-color: #efefef; 
+	color: #656565;
+	margin-top:10px;
+	position:relative;
+}
+
+.taskcontentblock{
+	width: 75%;
+	min-height:5vh;
+	color: #656565;
+	padding:5px;
+	display:inline-block;
+}
+
+.tasktitle{
+	color: #656565;
+	font-weight: bold;
+	padding:10px 10px 0px 10px;
+}
+
+.taskduedate{
+	color: #656565;
+	padding:0px 10px 10px 10px;
+}
+
+.taskbuttongroup{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+.filtercontainer{
+	padding: 10px;
+	position:absolute;
+	bottom:10px;
 }
