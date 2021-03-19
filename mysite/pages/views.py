@@ -34,16 +34,26 @@ def calendar(request):
 			total_tasks_ever_made(increment=1)
 
 		if ('delete_task' in request.POST): #If the form that we submitted has the name 'delete_task'
-			id_to_delete = request.POST['deleted_task'] #Get the ID of the task. This is stored in a input tag of type='hidden'
+			id_to_delete = request.POST['task_id'] #Get the ID of the task. This is stored in a input tag of type='hidden'
 			Task.objects.filter(id=id_to_delete).delete()
+
+		if ('edit_task' in request.POST): #If the form that we submitted has the name 'edit_task'
+			task_id = request.POST['task_id'] #Get the ID of the task. This is stored in a input tag of type='hidden'
+			return HttpResponseRedirect("task_"+task_id + "/edit_task")
 
 	course_list = Course.objects.all()
 	tsk_list = Task.objects.filter(due_date__lte=timezone.now()).order_by('-due_date')
 	return render(request, 'pages/tasks.html', {'tsk_list': tsk_list, 'course_list': course_list})
 
+def edit_task(request, task_id):
+	task = get_object_or_404(Task, pk=task_id)
+	if (request.method == "POST"):
+		print(request.POST) #affect task here
+	return render(request, 'pages/edit_task.html', {'task': task})
+
 def courses(request):
 	if (request.method == "POST"):
-		if ('new_course' in request.POST): #If the form that we submitted has the name 'new_task'
+		if ('new_course' in request.POST): #If the form that we submitted has the name 'new_course'
 			check_websitemeta()
 			c = Course()
 			c.name = f'Untitled Course {total_courses_ever_made()}'
@@ -51,12 +61,22 @@ def courses(request):
 			c.save()
 			total_courses_ever_made(increment=1)
 
-		if ('delete_course' in request.POST): #If the form that we submitted has the name 'delete_task'
-			id_to_delete = request.POST['deleted_course'] #Get the ID of the task. This is stored in a input tag of type='hidden'
+		if ('delete_course' in request.POST): #If the form that we submitted has the name 'delete_course'
+			id_to_delete = request.POST['course_id'] #Get the ID of the course. This is stored in a input tag of type='hidden'
 			Course.objects.filter(id=id_to_delete).delete()
+
+		if ('edit_course' in request.POST): #If the form that we submitted has the name 'edit_course'
+			course_id = request.POST['course_id'] #Get the ID of the course. This is stored in a input tag of type='hidden'
+			return HttpResponseRedirect("course_"+course_id + "/edit_course")
 
 	course_list = Course.objects.all()
 	return render(request, 'pages/courses.html', {'course_list': course_list})
+
+def edit_course(request, course_id):
+	course = get_object_or_404(Course, pk=course_id)
+	if (request.method == "POST"):
+		print(request.POST) #affect course here
+	return render(request, 'pages/edit_course.html', {'course': course})
 
 def tos(request):
 	return HttpResponse("Terms of Service")
