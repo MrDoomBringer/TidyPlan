@@ -25,9 +25,9 @@
 					<form method = "post">
 						{% csrf_token %}<!--Django thing to prevent cross-site attacks. Probably unneccessary-->
 						<!--Hidden input only used to send extra data (the task's ID). Can't send the data along with the delete_task button for some reason-->
-						<input type="hidden", name='deleted_course', value="{{task.id}}">
+						<input type="hidden", name='course_id', value="{{task.id}}">
 						<!--Edit and delete buttons-->
-						<button class = "coursebutton"><i class="material-icons">edit</i></button>
+						<button name='edit_course', type="submit", class = "coursebutton"><i class="material-icons">edit</i></button>
 						<button name='delete_course', type="submit", class = "coursebutton"><i class="material-icons">delete</i></button>
 					</form>
 				</div>
