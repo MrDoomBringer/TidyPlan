@@ -6,20 +6,18 @@ on: push
 jobs:
   # Set the job key. The key is displayed as the job name
   # when a job name is not provided
-  super-lint:
-    # Name the Job
-    name: Lint code base
+  build:
     # Set the type of machine to run on
+    name: Test Code Base
     runs-on: ubuntu-latest
-
     steps:
       # Checks out a copy of your repository on the ubuntu-latest machine
       - name: Checkout code
         uses: actions/checkout@v2
 
       # Runs the Super-Linter action
-      - name: Run Super-Linter
-        uses: github/super-linter@v3
+      - name: Run Unit Test
+        uses: ./.github/actions
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

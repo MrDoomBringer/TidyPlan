@@ -1,0 +1,6 @@
+jobs:
+  run-unit-tests:
+    steps:
+      - name: Run unit tests
+        run: ./.github/scripts/unit-test.ps1
+        shell: pwsh
