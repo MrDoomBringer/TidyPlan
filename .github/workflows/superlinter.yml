@@ -17,7 +17,8 @@ jobs:
 
       # Runs the Super-Linter action
       - name: Run Unit Test
-        uses: ./.github/actions/unit_test_action
+        run: ./.github/scripts/unit-test.ps1
+        shell: pwsh
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
