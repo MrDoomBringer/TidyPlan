@@ -1,24 +1,28 @@
-name: Super-Linter
+# What initially started as the 'superlinter.yml' example workflow has evolved into this, 
+# automated integration of our project with codebase-specific testing.
 
-# Run this workflow every time a new commit pushed to your repository
+name: TidyPlan Automated CI
+
+# Run this workflow every time a new commit is pushed to the repository
 on: push
 
 jobs:
-  # Set the job key. The key is displayed as the job name
-  # when a job name is not provided
   build:
     # Set the type of machine to run on
     name: Test Code Base
     runs-on: ubuntu-latest
     steps:
-      # Checks out a copy of your repository on the ubuntu-latest machine
+      # Checks out a copy of the repository on a GitHub-hosted ubuntu virtual machine
       - name: Checkout code
         uses: actions/checkout@v2
+      
+      # Install/setup dependencies, currently just an installation of Django as
+      # GitHub's VM comes preloaded with Python, powershell, and pip
+      - name: Install Dependencies
+        run: ./.github/scripts/setup-deps.ps1
+        shell: pwsh
 
-      # Runs the Super-Linter action
-      - name: Run Unit Test
+      # Runs custom Unit-Tests defined in ./mysite/pages/tests.py
+      - name: Run Unit Tests
         run: ./.github/scripts/unit-test.ps1
         shell: pwsh
-        env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
