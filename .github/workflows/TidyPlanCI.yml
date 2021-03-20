@@ -18,9 +18,8 @@ jobs:
       
       # Install/setup dependencies, currently just an installation of Django as
       # GitHub's VM comes preloaded with Python, powershell, and pip
-      # We're in a VM so we don't care about script location
       - name: Install Dependencies (Currently just installs Django)
-        run: ./.github/scripts/setup-deps.ps1 --no-warn-script-location 
+        run: ./.github/scripts/setup-deps.ps1
         shell: pwsh
 
       # Runs custom Unit-Tests defined in ./mysite/pages/tests.py
