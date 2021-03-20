@@ -2,7 +2,6 @@
 Get-Location
 cd ../..
 Get-Location
-./tutorial-venv/Scripts/activate
+./tutorial-venv/Scripts/activate.ps1
 cd ./mysite
 python ./manage.py test
-Read-Host -Prompt "Press Enter to exit"
