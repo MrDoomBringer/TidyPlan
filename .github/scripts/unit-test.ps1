@@ -1,5 +1,5 @@
 
 Get-Location
-cd ../../mysite
+cd ./mysite
 python -m pip install Django
 python ./manage.py test
