@@ -17,7 +17,7 @@ jobs:
 
       # Runs the Super-Linter action
       - name: Run Unit Test
-        uses: ./.github/actions
+        uses: ./.github/actions/unit_test_action
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
