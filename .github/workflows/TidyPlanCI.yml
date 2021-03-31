@@ -4,7 +4,7 @@
 name: TidyPlan Automated CI
 
 # Run this workflow every time a new commit is pushed to the repository
-on: push
+on: [push, pull_request]
 
 jobs:
   build:
