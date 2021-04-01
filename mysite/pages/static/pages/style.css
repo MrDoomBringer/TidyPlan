@@ -1,0 +1,174 @@
+
+a {
+   color : inherit;
+   text-decoration: inherit;
+   margin-right: 15px;
+}
+
+body {
+	background-color: #FEFEFE;
+	font-family: "Open Sans";
+}
+
+h2 {	
+	font-family: Raleway;
+	color: black;
+	font-size: 2em;
+}
+
+.taskbutton {
+	border: none;
+	text-align: center;
+	padding:8px;
+    background-color:transparent;
+}
+
+.addtaskbutton {
+	background-color:rgba(0,0,0,0.0);
+	border: none;
+	padding:1%;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.coursefilterbutton {
+	background-color: red;
+	border: none;
+	display:block;
+    width: 10em;
+    padding: 5px;
+    margin-bottom: 5px;
+    margin-left: 0px;
+}
+
+.button {
+    font-family: Raleway;
+   border: none;
+    color: black;
+   padding: 10px 40px;
+   text-align: center;
+   display: inline-block;
+   font-size: 16px;
+   margin: 10px 0px;
+   cursor: pointer;
+}
+
+.coursebutton:hover {
+    background-color: #FFFF00;
+    color: black;
+}
+
+button:hover {
+	color: blue;
+}
+
+.tasklist{ 
+	width: 50vw;
+	color: #656565;
+	position: absolute;
+	top: 5%;
+	right: 5%;
+}
+
+.taskdate{ 
+	color: #656565;
+	text-align: left; 
+	margin-bottom:-20px;
+}
+
+.taskentry{
+	width: 100%;
+	min-height: 5vh;
+	background-color: #efefef; 
+	color: #656565;
+	margin-top:10px;
+	position:relative;
+}
+
+.taskcontentblock{
+	width: 75%;
+	min-height:5vh;
+	color: #656565;
+	padding:5px;
+	display:inline-block;
+}
+
+.tasktitle{
+	color: #656565;
+	font-weight: bold;
+	padding:10px 10px 0px 10px;
+}
+
+.taskduedate{
+	color: #656565;
+	padding:0px 10px 10px 10px;
+}
+
+.taskbuttongroup{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+.filtercontainer{
+	padding: 10px;
+	position:absolute;
+	bottom:10px;
+}
+
+.courselist{ 
+	margin: 40px 40px;
+	width: 100vw;
+	color: #656565;
+	position: center;
+	top: 10%;
+    left: 10%;
+    right: 10%;
+}
+
+.courseentry{
+	width: 50%;
+    margin: 0px 0px;
+	min-height: 5vh;
+	background-color: #efefef; 
+	color: #656565;
+	margin-top:10px;
+	position:relative;
+}
+
+.coursecontentblock{
+	width: 75%;
+	min-height:5vh;
+	color: #656565;
+	padding:.5rem;
+	display:inline-block;
+}
+
+.coursename{
+	color: #656565;
+	font-weight: bold;
+	padding:.5rem .5rem 0rem .5rem;
+}
+
+.courseprofessor{
+	color: #656565;
+	padding:0rem .5rem .5rem .5rem;
+}
+
+.coursebuttongroup{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+.coursebutton {
+	border: none;
+	text-align: center;
+	padding:.5rem;
+    background-color:transparent;
+}
+
+.addcoursebutton {
+	background-color: #efefef; 
+}

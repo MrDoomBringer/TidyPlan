@@ -1,11 +1,51 @@
 {% extends "./base.html"%}
-{%block title %}View Tasks{% endblock %}
+{%block title %}Tasks{% endblock %}
 
 {% block content %}
-	<h1>{{tsk_list.name_text}}</h1>
-	<ul>
-		{% for task in tsk_list %}
-			<li>{{task.description_text}}</li>
+	<form method = "post">
+		<!--Th csrf_token here is just a Django element that goes in forms to prevent cross-site attacks. Probably unneccessary for our use case-->
+		{% csrf_token %}
+		<button class = "addtaskbutton" type="submit", name='new_task'>
+			<i class="material-icons">add_circle</i>
+		</button>
+	</form>
+	{% if tsk_list %} <!--If there's any data in the task list (tsk_list is sent here by python in the views.py calendar function's return statement)-->
+		<h1>{{tsk_list.name_text}}</h1>
+		<div class = "tasklist">
+			<!--Group tasks by day using the date:"l" format as a filter-->
+			{% regroup tsk_list by due_date|date:"l" as tasks_by_date %}
+			<!--date_group is a tuple with 2 elements: 'grouper' and 'list'. Grouper is the date we grouped by, and list is the rest of the task's model info-->
+			{% for date_group in tasks_by_date %}
+				<div class = "taskdate"><h2>{{ date_group.grouper}}</h2></div> <!--Grouper is the date (just the day, specifically. No info about month or year)-->
+				{% for task in date_group.list %} <!--Loop through all the tasks in the date group-->
+					<div class="taskentry">
+						<div class="taskcontentblock">
+							<div class = "tasktitle">{{task.description_text}}</div>
+							<div class = "taskduedate">{{task.due_date}}</div>
+						</div>
+						<div class = "taskbuttongroup">
+							<form method = "post">
+								{% csrf_token %}
+								<!--Hidden input only used to send extra data (the task's ID). Can't send the data along with the delete_task button for some reason-->
+								<input type="hidden", name='task_id', value="{{task.id}}">
+								<!--Edit and delete buttons-->
+								<button name='edit_task', type="submit", class = "taskbutton"><i class="material-icons">edit</i></button>
+								<button name='delete_task', type="submit", class = "taskbutton"><i class="material-icons">delete</i></button>
+							</form>
+						</div>
+					</div>
+				{% endfor %}
+			{% endfor %}
+		</div>
+	{% else %}
+		<p> No tasks are available to view </p>
+	{% endif %}
+	<div class = "filtercontainer">
+		Filter by course
+		{% for course in course_list %}
+		<button class = "coursefilterbutton", style="background-color:{{course.color}}">{{course.name}}</button>
 		{% endfor %}
-	</ul>
+	</div>
+</div>
+
 {% endblock %}
