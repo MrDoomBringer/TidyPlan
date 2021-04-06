@@ -48,8 +48,16 @@ def calendar(request):
 def edit_task(request, task_id):
 	task = get_object_or_404(Task, pk=task_id)
 	if (request.method == "POST"):
-		print(request.POST) #affect task here
-	return render(request, 'pages/edit_task.html', {'task': task})
+                form = PostForm(request.POST, instance = task)
+		if form.is_valid():
+			task = form.save(commit=False)
+			task.name = request.user
+			task.save()
+		        return redirect('blog:tasks')
+	else:
+		form = PostForm(instance=task)
+	context = {'form':form}
+	return render(request, 'pages/edit_task.html', context)
 
 def courses(request):
 	if (request.method == "POST"):
@@ -75,8 +83,16 @@ def courses(request):
 def edit_course(request, course_id):
 	course = get_object_or_404(Course, pk=course_id)
 	if (request.method == "POST"):
-		print(request.POST) #affect course here
-	return render(request, 'pages/edit_course.html', {'course': course})
+                form = PostForm(request.POST, instance = course)
+		if form.is_valid():
+			course = form.save(commit=False)
+			course.name = request.user
+			course.save()
+		        return redirect('blog:courses')
+	else:
+		form = PostForm(instance=course)
+	context = {'form':form}
+	return render(request, 'pages/edit_course.html', context)
 
 def tos(request):
 	return HttpResponse("Terms of Service")
