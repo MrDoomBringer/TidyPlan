@@ -45,10 +45,11 @@ def calendar(request):
 	tsk_list = Task.objects.filter(due_date__lte=timezone.now()).order_by('-due_date')
 	return render(request, 'pages/tasks.html', {'tsk_list': tsk_list, 'course_list': course_list})
 
-def edit_task(request):
-	template = 'pages/edit_task.html'
-	context = {}
-	return render(request, template, context)
+def edit_task(request, task_id):
+	task = get_object_or_404(Task, pk=task_id)
+	if (request.method == "POST"):
+		print(request.POST) #affect task here
+	return render(request, 'pages/edit_task.html', {'task': task})
 
 def courses(request):
 	if (request.method == "POST"):
@@ -71,9 +72,11 @@ def courses(request):
 	course_list = Course.objects.all()
 	return render(request, 'pages/courses.html', {'course_list': course_list})
 
-def edit_course(request):
-	context = {}
-	return render(request, 'pages/edit_course.html', context)
+def edit_course(request, course_id):
+	course = get_object_or_404(Course, pk=course_id)
+	if (request.method == "POST"):
+		print(request.POST) #affect course here
+	return render(request, 'pages/edit_course.html', {'course': course})
 
 def tos(request):
 	return HttpResponse("Terms of Service")
