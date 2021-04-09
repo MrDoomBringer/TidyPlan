@@ -55,7 +55,7 @@ def update_subtasks(task: Task):
 		num_subtasks = int(task.time_estimate / block_time)
 		for i in range(num_subtasks):
 			subtask = Task()
-			subtask.description_text = f"Subtask for {task}"
+			subtask.description_text = f"Work on {task}"
 			subtask.is_subtask = True
 			subtask.parent_task = task
 			subtask.time_estimate = block_time
