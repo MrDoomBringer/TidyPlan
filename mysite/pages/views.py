@@ -34,10 +34,12 @@ def calendar(request):
 			t.save()
 			update_subtasks(t)
 			total_tasks_ever_made(increment=1)
+			return HttpResponseRedirect("/calendar")
 
 		if ('delete_task' in request.POST): #If the form that we submitted has the name 'delete_task'
 			id_to_delete = request.POST['task_id'] #Get the ID of the task. This is stored in a input tag of type='hidden'
 			Task.objects.filter(id=id_to_delete).delete()
+			return HttpResponseRedirect("/calendar")
 
 		if ('edit_task' in request.POST): #If the form that we submitted has the name 'edit_task'
 			task_id = request.POST['task_id'] #Get the ID of the task. This is stored in a input tag of type='hidden'
