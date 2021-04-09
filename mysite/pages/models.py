@@ -36,7 +36,7 @@ class SubTask(models.Model):
     todo_list = models.ForeignKey(Task, null=True, on_delete=models.CASCADE)
     due_date = models.DateTimeField('Due Date', default=timezone.now)
     time_estimate = models.IntegerField(default=0)
-    
+
 
 class WebsiteMeta(models.Model):		
     total_tasks_created = models.IntegerField(default = 0)
