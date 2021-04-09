@@ -13,11 +13,14 @@
 		<h1>{{tsk_list.name_text}}</h1>
 		<div class = "tasklist">
 			<!--Group tasks by day using the date:"l" format as a filter-->
-			{% regroup tsk_list by due_date|date:"l" as tasks_by_date %}
+			{% regroup tsk_list by due_date|date:"M d" as tasks_by_date %}
 			<!--date_group is a tuple with 2 elements: 'grouper' and 'list'. Grouper is the date we grouped by, and list is the rest of the task's model info-->
 			{% for date_group in tasks_by_date %}
 				<div class = "taskdate"><h2>{{ date_group.grouper}}</h2></div> <!--Grouper is the date (just the day, specifically. No info about month or year)-->
 				{% for task in date_group.list %} <!--Loop through all the tasks in the date group-->
+					{% if task.is_subtask %}
+					hello
+					{% endif %}
 					<div class="taskentry">
 						<div class="taskcontentblock">
 							<div class = "tasktitle">{{task.description_text}}</div>
