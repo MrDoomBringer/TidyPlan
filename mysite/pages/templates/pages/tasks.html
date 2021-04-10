@@ -40,7 +40,7 @@
 							<div class = "taskduedate">
 								{{task.due_date}} 
 								&emsp;|&emsp; total: {{task.time_estimate}} minutes 
-								&emsp;|&emsp; Subtasks: {{task.subtask_parent.all|length}} / {{task.initial_subtask_count}}
+								&emsp;|&emsp; Subtasks: {{task.subtasks.all|length}} / {{task.initial_subtask_count}}
 							</div>
 						</div>
 						<div class = "taskbuttongroup">

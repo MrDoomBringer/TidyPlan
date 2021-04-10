@@ -31,7 +31,7 @@ class Task(models.Model):
     time_estimate = models.IntegerField(default=0)
     initial_subtask_count = models.IntegerField(default=0)
     is_subtask = models.BooleanField(default=False)
-    parent_task = models.ForeignKey('self', related_name="subtask_parent", null=True, on_delete=models.CASCADE)
+    parent_task = models.ForeignKey('self', related_name="subtasks", null=True, on_delete=models.CASCADE)
     def __str__(self):
         return self.description_text
 
