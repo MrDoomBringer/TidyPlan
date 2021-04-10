@@ -8,7 +8,7 @@ from django.views import generic
 from django.utils import timezone
 from .models import User, Task, WebsiteMeta, Course
 
-import random
+import random, math
 
 def index(request):
 	template_name = 'pages/home.html'
@@ -30,7 +30,7 @@ def calendar(request):
 			check_websitemeta()
 			t = Task()
 			t.description_text = f'Untitled Task {total_tasks_ever_made()}'
-			t.time_estimate = 180 #Three Hours
+			t.time_estimate = 165 #Almost three hours
 			t.due_date = timezone.now() + timezone.timedelta(days = 10)
 			t.save()
 			update_subtasks(t)
@@ -52,8 +52,9 @@ def calendar(request):
 
 def update_subtasks(task: Task):
 	block_time = 60 #1 hour blocks
-	if (task.time_estimate > block_time):
-		num_subtasks = int(task.time_estimate / block_time)
+	time_remaining = task.time_estimate
+	if (time_remaining > block_time):
+		num_subtasks = int(math.ceil(time_remaining / block_time))
 		days_to_doit = task.due_date - timezone.now()
 		days_between_subtasks = days_to_doit / num_subtasks
 		#Keep track of initial number of subtasks. 
@@ -66,9 +67,13 @@ def update_subtasks(task: Task):
 			subtask.description_text = f"Work on {task}"
 			subtask.is_subtask = True
 			subtask.parent_task = task
-			subtask.time_estimate = block_time
+			if (time_remaining >= block_time):
+				subtask.time_estimate = block_time
+			else:
+				subtask.time_estimate = time_remaining
 			subtask.due_date = timezone.now() + (days_between_subtasks * i) #TODO: Smarter timedelta based on schedule, etc
 			subtask.save()
+			time_remaining -= block_time
 
 def edit_task(request, task_id):
 	task = get_object_or_404(Task, pk=task_id)
