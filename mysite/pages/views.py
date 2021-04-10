@@ -56,7 +56,11 @@ def update_subtasks(task: Task):
 		num_subtasks = int(task.time_estimate / block_time)
 		days_to_doit = task.due_date - timezone.now()
 		days_between_subtasks = days_to_doit / num_subtasks
-
+		#Keep track of initial number of subtasks. 
+		#We do this cus the actual number can change as subtasks are completed (deleted)
+		#This should probably be removed if the method of completing subtasks ever changes
+		task.initial_subtask_count = num_subtasks
+		task.save()
 		for i in range(num_subtasks):
 			subtask = Task()
 			subtask.description_text = f"Work on {task}"

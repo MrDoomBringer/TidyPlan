@@ -37,7 +37,11 @@
 					<div class="taskentry">
 						<div class="taskcontentblock">
 							<div class = "tasktitle">{{task.description_text}}</div>
-							<div class = "taskduedate">{{task.due_date}} | total: {{task.time_estimate}} minutes {{task.subtask_parent.all|length}}</div>
+							<div class = "taskduedate">
+								{{task.due_date}} 
+								&emsp;|&emsp; total: {{task.time_estimate}} minutes 
+								&emsp;|&emsp; Subtasks: {{task.subtask_parent.all|length}} / {{task.initial_subtask_count}}
+							</div>
 						</div>
 						<div class = "taskbuttongroup">
 							<form method = "post">
