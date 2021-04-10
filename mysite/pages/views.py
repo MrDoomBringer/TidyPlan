@@ -54,12 +54,9 @@ def update_subtasks(task: Task):
 	block_time = 60 #1 hour blocks
 	if (task.time_estimate > block_time):
 		num_subtasks = int(task.time_estimate / block_time)
-		days_to_doit = timezone.now() - task.due_date
+		days_to_doit = task.due_date - timezone.now()
 		days_between_subtasks = days_to_doit / num_subtasks
 
-		print(f"Days to do it: {days_to_doit}")
-		print(f"Days between subtasks: {days_between_subtasks}") #TODO: make this actually work lol
-		
 		for i in range(num_subtasks):
 			subtask = Task()
 			subtask.description_text = f"Work on {task}"
