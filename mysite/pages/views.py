@@ -8,7 +8,7 @@ from django.views import generic
 from django.utils import timezone
 from .models import User, Task, WebsiteMeta, Course
 
-import random
+import random, math
 
 def index(request):
 	template_name = 'pages/home.html'
@@ -30,20 +30,50 @@ def calendar(request):
 			check_websitemeta()
 			t = Task()
 			t.description_text = f'Untitled Task {total_tasks_ever_made()}'
+			t.time_estimate = 165 #Almost three hours
+			t.due_date = timezone.now() + timezone.timedelta(days = 10)
 			t.save()
+			update_subtasks(t)
 			total_tasks_ever_made(increment=1)
+			return HttpResponseRedirect("/calendar")
 
 		if ('delete_task' in request.POST): #If the form that we submitted has the name 'delete_task'
 			id_to_delete = request.POST['task_id'] #Get the ID of the task. This is stored in a input tag of type='hidden'
 			Task.objects.filter(id=id_to_delete).delete()
+			return HttpResponseRedirect("/calendar")
 
 		if ('edit_task' in request.POST): #If the form that we submitted has the name 'edit_task'
 			task_id = request.POST['task_id'] #Get the ID of the task. This is stored in a input tag of type='hidden'
 			return HttpResponseRedirect("task_"+task_id + "/edit_task")
 
 	course_list = Course.objects.all()
-	tsk_list = Task.objects.filter(due_date__lte=timezone.now()).order_by('-due_date')
+	tsk_list = Task.objects.all().order_by('-due_date')
 	return render(request, 'pages/tasks.html', {'tsk_list': tsk_list, 'course_list': course_list})
+
+def update_subtasks(task: Task):
+	block_time = 60 #1 hour blocks
+	time_remaining = task.time_estimate
+	if (time_remaining > block_time):
+		num_subtasks = int(math.ceil(time_remaining / block_time))
+		days_to_doit = task.due_date - timezone.now()
+		days_between_subtasks = days_to_doit / num_subtasks
+		#Keep track of initial number of subtasks. 
+		#We do this cus the actual number can change as subtasks are completed (deleted)
+		#This should probably be removed if the method of completing subtasks ever changes
+		task.initial_subtask_count = num_subtasks
+		task.save()
+		for i in range(num_subtasks):
+			subtask = Task()
+			subtask.description_text = f"Work on {task}"
+			subtask.is_subtask = True
+			subtask.parent_task = task
+			if (time_remaining >= block_time):
+				subtask.time_estimate = block_time
+			else:
+				subtask.time_estimate = time_remaining
+			subtask.due_date = timezone.now() + (days_between_subtasks * i) #TODO: Smarter timedelta based on schedule, etc
+			subtask.save()
+			time_remaining -= block_time
 
 def edit_task(request, task_id):
 	task = get_object_or_404(Task, pk=task_id)

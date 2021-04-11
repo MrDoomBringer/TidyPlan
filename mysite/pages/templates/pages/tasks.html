@@ -13,15 +13,35 @@
 		<h1>{{tsk_list.name_text}}</h1>
 		<div class = "tasklist">
 			<!--Group tasks by day using the date:"l" format as a filter-->
-			{% regroup tsk_list by due_date|date:"l" as tasks_by_date %}
+			{% regroup tsk_list by due_date|date:"M d" as tasks_by_date %}
 			<!--date_group is a tuple with 2 elements: 'grouper' and 'list'. Grouper is the date we grouped by, and list is the rest of the task's model info-->
 			{% for date_group in tasks_by_date %}
 				<div class = "taskdate"><h2>{{ date_group.grouper}}</h2></div> <!--Grouper is the date (just the day, specifically. No info about month or year)-->
 				{% for task in date_group.list %} <!--Loop through all the tasks in the date group-->
+					{% if task.is_subtask %}
+					<div class="taskentry" style="background-color:#d2edfc; border-radius:5px">
+							<div class = "tasktitle" >{{task.description_text}}</div>
+						
+							<div class = "taskduedate">{{task.time_estimate}} minutes</div>
+						<div class = "taskbuttongroup">
+							<form method = "post">
+								{% csrf_token %}
+								<!--Hidden input only used to send extra data (the task's ID). Can't send the data along with the delete_task button for some reason-->
+								<input type="hidden", name='task_id', value="{{task.id}}">
+								<!--Edit and delete buttons-->
+								<button name='delete_task', type="submit", class = "taskbutton"><i class="material-icons">check_circle_outline</i></button>
+							</form>
+						</div>
+					</div>
+					{% else %}
 					<div class="taskentry">
 						<div class="taskcontentblock">
 							<div class = "tasktitle">{{task.description_text}}</div>
-							<div class = "taskduedate">{{task.due_date}}</div>
+							<div class = "taskduedate">
+								{{task.due_date}} 
+								&emsp;|&emsp; total: {{task.time_estimate}} minutes 
+								&emsp;|&emsp; Subtasks: {{task.subtasks.all|length}} / {{task.initial_subtask_count}}
+							</div>
 						</div>
 						<div class = "taskbuttongroup">
 							<form method = "post">
@@ -34,6 +54,7 @@
 							</form>
 						</div>
 					</div>
+					{% endif %}
 				{% endfor %}
 			{% endfor %}
 		</div>
@@ -49,3 +70,4 @@
 </div>
 
 {% endblock %}
+
