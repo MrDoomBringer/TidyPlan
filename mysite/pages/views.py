@@ -8,7 +8,7 @@ from django.views import generic
 from django.utils import timezone
 from .models import User, Task, WebsiteMeta, Course
 
-import random
+import random, math
 
 def index(request):
 	template_name = 'pages/home.html'
@@ -30,21 +30,60 @@ def calendar(request):
 			check_websitemeta()
 			t = Task()
 			t.description_text = f'Untitled Task {total_tasks_ever_made()}'
+			t.time_estimate = 165 #Almost three hours
+			t.due_date = timezone.now() + timezone.timedelta(days = 10) #Due ten days from now by default
 			t.save()
+			update_subtasks(t)
 			total_tasks_ever_made(increment=1)
+			return HttpResponseRedirect("/calendar") #Need this return to avoid 'confirm form resubmission' thing
 
 		if ('delete_task' in request.POST): #If the form that we submitted has the name 'delete_task'
 			id_to_delete = request.POST['task_id'] #Get the ID of the task. This is stored in a input tag of type='hidden'
 			Task.objects.filter(id=id_to_delete).delete()
+			return HttpResponseRedirect("/calendar")
 
 		if ('edit_task' in request.POST): #If the form that we submitted has the name 'edit_task'
 			task_id = request.POST['task_id'] #Get the ID of the task. This is stored in a input tag of type='hidden'
 			return HttpResponseRedirect("task_"+task_id + "/edit_task")
 
 	course_list = Course.objects.all()
-	tsk_list = Task.objects.filter(due_date__lte=timezone.now()).order_by('-due_date')
+	tsk_list = Task.objects.all().order_by('-due_date')
 	return render(request, 'pages/tasks.html', {'tsk_list': tsk_list, 'course_list': course_list})
 
+#Add subtasks to an existing task
+#Subtasks are blocks of automatically scheduled time for someone to work on a larger task 
+#Amount of subtasks changes depending on the time estimate of the task,
+#and how long each subtask is (defined by the block_time variable)
+def update_subtasks(task: Task):
+	#Clear any currently existing subtasks, if they exist
+	for subtask in task.subtasks.all():
+		subtask.delete()
+	block_time = 60 #Time in minutes. This means Subtasks are 1 hour blocks of time
+	time_remaining = task.time_estimate
+	if (time_remaining > block_time):
+		num_subtasks = int(math.ceil(time_remaining / block_time))
+		days_to_doit = task.due_date - timezone.now()
+		days_between_subtasks = days_to_doit / num_subtasks
+		#Keep track of initial number of subtasks. 
+		#We do this cus the actual number can change as subtasks are completed (deleted)
+		#This should probably be removed if the method of completing subtasks ever changes
+		task.initial_subtask_count = num_subtasks
+		task.save()
+		#Actually create and 'attach' our subtasks to the parent task
+		for i in range(num_subtasks):
+			subtask = Task()
+			subtask.description_text = f"Work on {task}"
+			subtask.is_subtask = True
+			subtask.parent_task = task
+			if (time_remaining >= block_time):
+				subtask.time_estimate = block_time
+			else:
+				subtask.time_estimate = time_remaining
+			subtask.due_date = timezone.now() + (days_between_subtasks * i) #TODO: Smarter timedelta based on schedule, etc
+			subtask.save()
+			time_remaining -= block_time
+
+#Currently a placeholder function for handling task editing
 def edit_task(request, task_id):
 	task = get_object_or_404(Task, pk=task_id)
 	form = TaskForm(request.POST, instance = task)
@@ -58,6 +97,7 @@ def edit_task(request, task_id):
 			form = TaskForm(instance = task)
 	return render(request, 'pages/edit_task.html', {"form": form})
 
+#Very similar to the calendar view function above
 def courses(request):
 	if (request.method == "POST"):
 		if ('new_course' in request.POST): #If the form that we submitted has the name 'new_course'
@@ -79,6 +119,8 @@ def courses(request):
 	course_list = Course.objects.all()
 	return render(request, 'pages/courses.html', {'course_list': course_list})
 
+
+#Currently a placeholder function for handling course editing
 def edit_course(request, course_id):
 	course = get_object_or_404(Course, pk=course_id)
 	form = CourseForm(request.POST, instance = course)
@@ -95,6 +137,7 @@ def edit_course(request, course_id):
 def tos(request):
 	return HttpResponse("Terms of Service")
 
+#Function for handling view for creating todo lists
 def create(response):
 	if response.method == "POST":
 		form = CreateNewList(response.POST)

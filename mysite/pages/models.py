@@ -29,6 +29,9 @@ class Task(models.Model):
     description_text = models.CharField(default="Untitled Task", max_length=200)
     due_date = models.DateTimeField('Due Date', default=timezone.now)
     time_estimate = models.IntegerField(default=0)
+    initial_subtask_count = models.IntegerField(default=0)
+    is_subtask = models.BooleanField(default=False)
+    parent_task = models.ForeignKey('self', related_name="subtasks", null=True, on_delete=models.CASCADE)
     def __str__(self):
         return self.description_text
 
