@@ -1,406 +1,108 @@
-* {
-  box-sizing: border-box;
-}
 body {
-  font-size: 14px;
+ margin:0;
+ background:rgb(196,196,196);
+ font-family: Sawarabi Mincho;
 }
-.v101_19 {
-  width: 100%;
-  height: 1024px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
+
+input {
+  border:none;
+  font-family: Sawarabi Mincho;
 }
-.v101_20 {
-  width: 108px;
-  height: 99px;
-  background: rgba(240,101,67,1);
-  opacity: 1;
-  position: absolute;
-  top: 1px;
-  left: 335px;
-  overflow: hidden;
+
+input[type=text] {
+  padding:5px;
 }
-.v101_21 {
-  width: 156px;
-  height: 99px;
-  background: rgba(172,255,200,1);
-  opacity: 1;
-  position: absolute;
-  top: 1px;
-  left: 709px;
-  overflow: hidden;
-}
-.v101_22 {
-  width: 147px;
-  height: 99px;
-  background: rgba(88,255,144,1);
-  opacity: 1;
-  position: absolute;
-  top: 1px;
-  left: 538px;
-  overflow: hidden;
-}
-.v101_23 {
-  width: 100%;
-  height: 192px;
-  background: rgba(196,196,196,1);
-  opacity: 1;
-  position: absolute;
-  top: 93px;
-  left: 0px;
-  overflow: hidden;
-}
-.behindAbout {
-  width: 110px;
-  height: 99px;
-  background: rgba(255, 119, 89,1);
-  opacity: 1;
-  position: absolute;
-  top: 1px;
-  left: 430px;
-  overflow: hidden;
-}
-.behindAccount {
-  width: 150px;
-  height: 99px;
-  background: rgba(255,220,212,1);
-  opacity: 1;
-  position: absolute;
-  top: 1px;
-  left: 830px;
-  overflow: hidden;
-}
-.behindHowTo {
-  width: 120px;
-  height: 99px;
-  background: rgba(245,156,134,1);
-  opacity: 1;
-  position: absolute;
-  top: 1px;
-  left: 640px;
-  overflow: hidden;
-}
+
 .blackHeaderBar {
   width: 100%;
-  height: 93px;
-  background: rgba(49,54,56,1);
-  opacity: 1;
-  position: absolute;
-  top: 0px;
-  left: 2px;
-  overflow: hidden;
+  height: 90px;
+  background: rgb(49,54,56);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }
-.behindLoginButton {
-  width: 104px;
-  height: 45px;
-  background: rgba(240,156,80,0.4000000059604645);
-  opacity: 1;
-  position: absolute;
-  top: 1px;
-  left: 1588px;
-  border: 1px solid rgba(0,0,0,1);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-}
-.plannerHeader {
-  width: 381px;
-  color: rgba(172,255,200,1);
-  position: absolute;
-  top: 2px;
-  left: 29px;
+
+.header {
+  color: rgb(172,255,200);
   font-family: Raleway;
-  font-weight: Regular;
   font-size: 72px;
-  opacity: 1;
-  text-align: center;
 }
-.logInButtonHeader {
-  width: 76px;
-  color: rgba(172,255,200,1);
-  position: absolute;
-  top: 2px;
-  left: 1600px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
+
+.category {
+  color: rgb(240,157,81);
+  font-size:24px;
+  height:100%;
+  line-height: 90px;
+  border-bottom: 5px solid green;
+  transition: all 0.2s;
+  cursor:pointer;
 }
-.myCourses {
-  width: 141px;
-  color: rgba(240,157,81,1);
-  position: absolute;
-  top: 29px;
-  left: 1300px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
+
+.category:hover {
+ border-width: 15px; 
 }
-.howTo {
-  width: 141px;
-  color: rgba(240,157,81,1);
-  position: absolute;
-  top: 29px;
-  left: 650px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
+
+.tab {
+  height: 100%;
+  position: relative;
+  top:50px;
+  border: 1px solid green;
 }
-.myCalender {
-  width: 162px;
-  color: rgba(240,157,81,1);
-  position: absolute;
-  top: 29px;
-  left: 1050px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
+
+.small {
+  color: rgb(172,255,200);
+  font-size: 14px;
+  cursor:pointer;
 }
-.account {
-  width: 95px;
-  color: rgba(240,157,81,1);
-  position: absolute;
-  top: 30px;
-  left: 850px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
-}
-.about {
-  width: 70px;
-  color: rgba(240,157,81,1);
-  position: absolute;
-  top: 29px;
-  left: 450px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
-}
-.v101_37 {
-  width: 100%;
-  height: 521px;
-  background: rgba(196,196,196,1);
-  opacity: 1;
-  position: absolute;
-  top: 297px;
-  left: 149px;
-  overflow: hidden;
-}
-.v101_42 {
-  width: 100px;
-  color: rgba(49,54,56,1);
-  position: absolute;
-  top: 358px;
-  left: 412px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
-}
-.v101_43 {
-  width: 118px;
-  color: rgba(49,54,56,1);
-  position: absolute;
-  top: 466px;
-  left: 399px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 24px;
-  opacity: 1;
-  text-align: left;
-}
-.v101_36 {
-  width: 100%;
-  height: 104px;
-  background: rgba(49,54,56,1);
-  opacity: 1;
-  position: absolute;
-  top: 203px;
-  left: 134px;
-}
-.logInSubHeader {
-  width: 381px;
-  color: rgba(172,255,200,1);
-  position: absolute;
-  top: 213px;
-  left: 492px;
-  font-family: Raleway;
-  font-weight: Regular;
-  font-size: 72px;
-  opacity: 1;
-  text-align: center;
-}
-.userIDInput {
-  width: 324px;
-  height: 50px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 350px;
-  left: 526px;
-  overflow: hidden;
-}
-.passwordInput {
-  width: 324px;
-  height: 50px;
-  background: rgba(255,255,255,1);
-  opacity: 1;
-  position: absolute;
-  top: 458px;
-  left: 527px;
-  overflow: hidden;
-}
-.submitButton {
-  width: 165px;
-  height: 43px;
-  background: rgba(118,87,57,1);
-  opacity: 1;
-  position: absolute;
-  top: 520px;
-  left: 606px;
-  border: 1px solid rgba(0,0,0,1);
+
+.brown-button {
+  background: rgb(118,87,57);
+  padding-left:8px;
+  padding-right:8px;
+  padding-bottom: 5px;
+  border: 1px solid rgb(0,0,0);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-}
-.submit {
-  width: 80px;
-  color: rgba(162,224,173,1);
-  position: absolute;
-  top: 524px;
-  left: 642px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
   font-size: 24px;
-  opacity: 1;
-  text-align: left;
 }
-.v101_46 {
-  width: 100%;
-  height: 41px;
-  background: rgba(49,54,56,1);
-  opacity: 1;
-  position: absolute;
-  top: 983px;
-  left: 2px;
-  overflow: hidden;
+.login-form {
+  margin:auto;
+  margin-top:5%;
+  height:100%;
+  width:40%;
+  align-self: center;
+  height:200px;
+  display:flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
 }
-.contactUsButton {
-  width: 76px;
-  color: rgba(172,255,200,1);
-  position: absolute;
-  top: 992px;
-  left: 106px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 14px;
-  opacity: 1;
-  text-align: left;
+
+.login-section {
+  align-self: flex-end;
 }
-.advertiseButton {
-  width: 67px;
-  color: rgba(172,255,200,1);
-  position: absolute;
-  top: 992px;
-  left: 363px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 14px;
-  opacity: 1;
-  text-align: left;
+
+.content {
+  margin:10%;
+  height:60vh;
+  background:rgb(196,196,196);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
 }
-.tosButton {
-  width: 117px;
-  color: rgba(172,255,200,1);
-  position: absolute;
-  top: 992px;
-  left: 214px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 14px;
-  opacity: 1;
-  text-align: left;
+
+.bottom-bar {
+  bottom:0px;
+  height:50px;
+  position:fixed;
 }
-.privacyButton {
-  width: 98px;
-  color: rgba(172,255,200,1);
-  position: absolute;
-  top: 992px;
-  left: 600px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 14px;
-  opacity: 1;
-  text-align: left;
+
+
+
+.login-info {
+  font-size: 24px;
+  color: rgb(49,54,56)
 }
-.copyrightButton {
-  width: 112px;
-  color: rgba(172,255,200,1);
-  position: absolute;
-  top: 992px;
-  left: 462px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 14px;
-  opacity: 1;
-  text-align: left;
-}
-.faqButton {
-  width: 34px;
-  color: rgba(172,255,200,1);
-  position: absolute;
-  top: 992px;
-  left: 40px;
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 14px;
-  opacity: 1;
-  text-align: left;
-}
-.behindMyCourses {
-  width: 170px;
-  height: 7px;
-  background: rgba(88,255,144,1);
-  opacity: 1;
-  position: absolute;
-  top: 93px;
-  left: 1290px;
-  overflow: hidden;
-}
-.behindMyCalender {
-  width: 170px;
-  height: 8px;
-  background: rgba(172,255,200,1);
-  opacity: 1;
-  position: absolute;
-  top: 93px;
-  left: 1040px;
-  overflow: hidden;
-}
+
 .forgotUserPass {
-  width: 249px;
-  color: rgba(251,14,14,1);
-  position: absolute;
-  top: 575px;
-  left: 587px;
+  color: rgb(251,14,14);
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  font-family: Sawarabi Mincho;
-  font-weight: Regular;
-  font-size: 14px;
-  opacity: 1;
-  text-align: left;
 }
