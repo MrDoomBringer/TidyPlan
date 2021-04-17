@@ -1,22 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Sawarabi+Mincho&display=swap" rel="stylesheet" />
-    <link href="../../static/pages/loginPage.css" rel="stylesheet" />
-    <title>Document</title>
-    </head>
-<body>
-    <div class="blackHeaderBar">
-        <div class="header">TidyPlan</div>
-        <div class="category" style="border-color:rgb(255,119,89)">About</div>
-        <div class="category" style="border-color:rgb(245,156,134)">How-to</div>
-        <div class="category" style="border-color:rgb(255,220,212);">Account</div>
-        <div class="category" style="border-color:rgb(172,255,200);">My Calendar</div>
-        <div class="category" style="border-color:rgb(88,255,144)">My Courses</div>
-        <div class="small brown-button" style="align-self: flex-start;">Log In</div>
-    </div>
+{% extends "./base.html"%}
+{%block title %}Courses{% endblock %}
 
+{% block content %}
+
+<body class="home">
     <div class="body content">
         <div class="blackHeaderBar">
             <span class="header">Log In</span>
@@ -34,15 +21,6 @@
             <div class="small forgotUserPass"> Forgot Username/Password?</div>
         </div>
     </div>
+</div>
 
-    <div class="bottom-bar blackHeaderBar">
-        <div class="small">FAQ</div>
-        <div class="small">Contact Us</div>
-        <div class="small">Terms of Service</div>
-        <div class="small">Advertise</div>
-        <div class="small">Copyright Policy</div>
-        <div class="small">Privacy Policy</div>
-    </div>
-    </div>
-</body>
-</html>
+{% endblock %}

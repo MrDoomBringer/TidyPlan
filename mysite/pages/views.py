@@ -11,7 +11,7 @@ from .models import User, Task, WebsiteMeta, Course
 import random, math
 
 def index(request):
-	template_name = 'pages/home.html'
+	template_name = 'pages/base.html'
 	return render(request, template_name)
 
 def faq(request):
