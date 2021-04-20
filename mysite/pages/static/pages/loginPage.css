@@ -1,0 +1,108 @@
+body {
+ margin:0;
+ background:rgb(196,196,196);
+ font-family: Sawarabi Mincho;
+}
+
+input {
+  border:none;
+  font-family: Sawarabi Mincho;
+}
+
+input[type=text] {
+  padding:5px;
+}
+
+.blackHeaderBar {
+  width: 100%;
+  height: 90px;
+  background: rgb(49,54,56);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.header {
+  color: rgb(172,255,200);
+  font-family: Raleway;
+  font-size: 72px;
+}
+
+.category {
+  color: rgb(240,157,81);
+  font-size:24px;
+  height:100%;
+  line-height: 90px;
+  border-bottom: 5px solid green;
+  transition: all 0.2s;
+  cursor:pointer;
+}
+
+.category:hover {
+ border-width: 15px; 
+}
+
+.tab {
+  height: 100%;
+  position: relative;
+  top:50px;
+  border: 1px solid green;
+}
+
+.small {
+  color: rgb(172,255,200);
+  font-size: 14px;
+  cursor:pointer;
+}
+
+.brown-button {
+  background: rgb(118,87,57);
+  padding-left:8px;
+  padding-right:8px;
+  padding-bottom: 5px;
+  border: 1px solid rgb(0,0,0);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 24px;
+}
+.login-form {
+  margin:auto;
+  margin-top:5%;
+  height:100%;
+  width:40%;
+  align-self: center;
+  height:200px;
+  display:flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-section {
+  align-self: flex-end;
+}
+
+.content {
+  margin:10%;
+  height:60vh;
+  background:rgb(196,196,196);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.bottom-bar {
+  bottom:0px;
+  height:50px;
+  position:fixed;
+}
+
+
+
+.login-info {
+  font-size: 24px;
+  color: rgb(49,54,56)
+}
+
+.forgotUserPass {
+  color: rgb(251,14,14);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
