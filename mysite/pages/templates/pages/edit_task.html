@@ -1,11 +1,16 @@
 {% extends "./base.html"%}
 {%block title %}Tasks{% endblock %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
+<h1>Edit Tasks</h1>
+<br/><br/>
 
-<p>
-The task is:
+	<form method = "POST" class = "form-group">
+		{% csrf_token %}
+		{{ form|crispy }}
+		<button types = "submit" class = "btn btn-success">Update Tasks</button>
+	</form>
 
-{{task.description_text}}
-</p>
 {% endblock %}
