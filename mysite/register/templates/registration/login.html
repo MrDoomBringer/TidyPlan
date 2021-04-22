@@ -10,6 +10,6 @@ Login Here
 	{% csrf_token %}
 	{{form|crispy}}
 	<button type = "submit" class="btn btn-success">login</button>
-	<p>Don't have an account? Create one<a href="/register"></p>
+	<p><a href="/register">Don't have an account? Create one</a></p>
 </form>
 {% endblock %}
