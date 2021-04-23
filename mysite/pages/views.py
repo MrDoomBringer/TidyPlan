@@ -23,6 +23,16 @@ def howto(request):
 def account(request):
 	return HttpResponse("Account Page")
 
+def fullcalendar(request):
+	from datetime import date, timedelta
+	d = date(2020, 1, 1)
+	d += timedelta(days=6 - d.weekday())  # First Sunday
+	all_sunday_in_2020 = []
+	while d.year != 2021:
+		all_sunday_in_2020.append({'name': 'my-title', 'start': d, 'end': d + timedelta(days=1)})
+		d += timedelta(days=7)
+		return render(request, 'fullcalendar.html', {'events': all_sunday_in_2020})
+
 #See tasks.html for related HTML code
 def calendar(request):
 	if (request.method == "POST"):
