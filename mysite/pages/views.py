@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import Task, WebsiteMeta, Course
+from .models import User, Task, WebsiteMeta, Course
 
 import random, math
 
@@ -24,14 +24,8 @@ def account(request):
 	return HttpResponse("Account Page")
 
 def fullcalendar(request):
-	from datetime import date, timedelta
-	d = date(2020, 1, 1)
-	d += timedelta(days=6 - d.weekday())  # First Sunday
-	all_sunday_in_2020 = []
-	while d.year != 2021:
-		all_sunday_in_2020.append({'name': 'my-title', 'start': d, 'end': d + timedelta(days=1)})
-		d += timedelta(days=7)
-		return render(request, 'fullcalendar.html', {'events': all_sunday_in_2020})
+	template_name = 'pages/fullcalendar.html'
+	return render(request, template_name)
 
 #See tasks.html for related HTML code
 def calendar(request):
@@ -116,7 +110,6 @@ def courses(request):
 			c.name = f'Untitled Course {total_courses_ever_made()}'
 			c.color = f"hsl({random.randint(0, 360)}, {random.randint(25, 95)}%, {random.randint(85, 95)}%"
 			c.save()
-			request.user.course.add(c)
 			total_courses_ever_made(increment=1)
 
 		if ('delete_course' in request.POST): #If the form that we submitted has the name 'delete_course'
@@ -127,7 +120,7 @@ def courses(request):
 			course_id = request.POST['course_id'] #Get the ID of the course. This is stored in a input tag of type='hidden'
 			return HttpResponseRedirect("course_"+course_id + "/edit_course")
 
-	course_list = request.user.course.all()
+	course_list = Course.objects.all()
 	return render(request, 'pages/courses.html', {'course_list': course_list})
 
 
@@ -140,7 +133,6 @@ def edit_course(request, course_id):
 			course = form.save(commit = False)
 			course.course = course
 			course.save()
-
 			return redirect("/courses/")
 		else:
 			form = CourseForm(instance =course)
