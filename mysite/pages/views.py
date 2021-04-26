@@ -7,13 +7,17 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import User, Task, WebsiteMeta, Course
-
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 import random, math
 
 def index(request):
 	template_name = 'pages/home.html'
 	return render(request, template_name)
-
+def about(request):
+	template_name = 'pages/about.html'
+	return render(request, template_name)
 def faq(request):
 	return HttpResponse("FAQ")
 
@@ -22,6 +26,17 @@ def howto(request):
 
 def account(request):
 	return HttpResponse("Account Page")
+
+def register(response):
+	if response.method == "POST":
+		form = UserCreationForm(response.POST)
+		if form.is_valid():
+			form.save()
+
+		return redirect("/")
+	else:
+		form = UserCreationForm()
+	return render(response, "register/register.html", {"form": form})
 
 #See tasks.html for related HTML code
 def calendar(request):
