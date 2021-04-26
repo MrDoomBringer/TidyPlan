@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.urls import path, include
-from register import views as v
 
 from . import views
 
@@ -17,6 +16,6 @@ urlpatterns = [
     path('calendar/', views.calendar, name='calendar'),
     path('tos/', views.tos, name='tos'),
     path("create/", views.create, name = "create"),
-    path("register/", v.register, name = "register"),
+    path("register/", views.register, name = "register"),
     path('', include("django.contrib.auth.urls"))
 ]
