@@ -64,11 +64,9 @@ button:hover {
 }
 
 .tasklist{ 
-	width: 50vw;
+	width: 70vw;
 	color: #656565;
-	position: absolute;
-	top: 5%;
-	right: 5%;
+	float:right;
 }
 
 .taskdate{ 
@@ -113,8 +111,7 @@ button:hover {
 
 .filtercontainer{
 	padding: 10px;
-	position:absolute;
-	bottom:10px;
+	position:fixed;
 }
 
 .courselist{ 
