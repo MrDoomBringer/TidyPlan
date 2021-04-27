@@ -2,12 +2,7 @@ import datetime
 from django.db import models
 from django.utils import timezone
 import datetime
-
-class User(models.Model):		
-    name_text = models.CharField(max_length = 200)
-    def __str__(self):
-        return self.name_text
-
+from django.contrib.auth.models import User
 
 # Create your models here.
 class ToDoList(models.Model):
@@ -17,6 +12,7 @@ class ToDoList(models.Model):
 		return self.name
 
 class Course(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "course", null = True)
     name = models.CharField(default = "untitled course", max_length=25)
     color = models.CharField(default = "#F6F6F6", max_length=7)
     def __str__(self):
