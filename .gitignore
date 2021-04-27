@@ -13,5 +13,5 @@
 #Ignore database files (These can contain usernames and passwords! Should never ship with a repo, especially a public open-source one lol)
 *.sqlite3
 #ignore .metadata and .vs folder (Used by notepad++ and visual studio maybe?)
-/**metadata
-/**vs
+**/.metadata
+**/.vs
