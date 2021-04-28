@@ -13,7 +13,9 @@ import random, math
 def index(request):
 	template_name = 'pages/base.html'
 	return render(request, template_name)
-
+def about(request):
+	template_name = 'pages/about.html'
+	return render(request, template_name)
 def faq(request):
 	return HttpResponse("FAQ")
 
@@ -22,6 +24,17 @@ def howto(request):
 
 def account(request):
 	return HttpResponse("Account Page")
+
+def register(response):
+	if response.method == "POST":
+		form = UserCreationForm(response.POST)
+		if form.is_valid():
+			form.save()
+
+		return redirect("/")
+	else:
+		form = UserCreationForm()
+	return render(response, "register/register.html", {"form": form})
 
 #See tasks.html for related HTML code
 def calendar(request):
