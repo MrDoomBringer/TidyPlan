@@ -7,18 +7,42 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'pages/loginPage.css' %}">
 		<title>{% block title %}TidyPlan{% endblock %}</title>
 	</head>
-	<body>
-		<a href="/">Home</a>
-		<a href="/calendar">Calendar</a>
-		<a href="/courses">Courses</a>
-		<a href="/create">TodoLists</a>
-		<a href="/about">About</a>
-		<a href="/register">Login</a>
-		<div name_text="content", name = "content">
-			{% block content %}
-			{% endblock %}
+	<body class="home">
+	<div class="blackHeaderBar">
+        <div class="header">TidyPlan</div>
+        <div class="category" style="border-color:rgb(255,119,89)">
+			<a href="/about">About</a>
 		</div>
+        <div class="category" style="border-color:rgb(245,156,134)">
+			<a href="/how-to">How-to</a>
+		</div>
+        <div class="category" style="border-color:rgb(255,220,212);">
+			<a href="/account">Account</a>
+		</div>
+        <div class="category" style="border-color:rgb(172,255,200);">
+			<a href="/calendar">My Calendar</a>
+		</div>
+        <div class="category" style="border-color:rgb(88,255,144)">
+			<a href="/courses">My Courses</a>
+		</div>
+        <div class="small brown-button" style="align-self: flex-start;">
+			<a href="/login">Login</a>
+		</div>
+    </div>
+	<div class="content">
+		{% block content %}
+		{% endblock %}
+	</div>
+	<div class="bottom-bar blackHeaderBar">
+        <div class="small">FAQ</div>
+        <div class="small">Contact Us</div>
+        <div class="small">Terms of Service</div>
+        <div class="small">Advertise</div>
+        <div class="small">Copyright Policy</div>
+        <div class="small">Privacy Policy</div>
+    </div>
 	</body>
 </html>

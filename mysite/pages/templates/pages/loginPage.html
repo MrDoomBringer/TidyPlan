@@ -1,0 +1,26 @@
+{% extends "./base.html"%}
+{%block title %}Courses{% endblock %}
+
+{% block content %}
+
+<body class="home">
+    <div class="body content">
+        <div class="blackHeaderBar">
+            <span class="header">Log In</span>
+        </div>
+        <div class="login-form">
+            <div class="login-section">
+                <label for="user" class="login-info">User ID:</label>
+                <input id="user" type="text" class="login-info"></input>
+            </div>
+            <div class="login-section">
+                <label for="pass" class="login-info">Password:</label>
+                <input id="pass" type="text" class="login-info"></input>
+            </div>
+            <input type="submit" class="small brown-button"></input>
+            <div class="small forgotUserPass"> Forgot Username/Password?</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

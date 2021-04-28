@@ -1,19 +1,17 @@
 from django.http import HttpResponse
 from .models import ToDoList
-from .forms import CreateNewList
+from .forms import CreateNewList, CourseForm, TaskForm
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import User, Task, WebsiteMeta, Course
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from .models import Task, WebsiteMeta, Course
+
 import random, math
 
 def index(request):
-	template_name = 'pages/home.html'
+	template_name = 'pages/base.html'
 	return render(request, template_name)
 def about(request):
 	template_name = 'pages/about.html'
@@ -101,9 +99,16 @@ def update_subtasks(task: Task):
 #Currently a placeholder function for handling task editing
 def edit_task(request, task_id):
 	task = get_object_or_404(Task, pk=task_id)
-	if (request.method == "POST"):
-		print(request.POST) #affect task here
-	return render(request, 'pages/edit_task.html', {'task': task})
+	form = TaskForm(request.POST, instance = task)
+	if request.method == "POST":
+		if form.is_valid():
+			task = form.save(commit = False)
+			task.task = task
+			task.save()
+			return redirect('/calendar/')
+		else:
+			form = TaskForm(instance = task)
+	return render(request, 'pages/edit_task.html', {"form": form})
 
 #Very similar to the calendar view function above
 def courses(request):
@@ -114,6 +119,7 @@ def courses(request):
 			c.name = f'Untitled Course {total_courses_ever_made()}'
 			c.color = f"hsl({random.randint(0, 360)}, {random.randint(25, 95)}%, {random.randint(85, 95)}%"
 			c.save()
+			request.user.course.add(c)
 			total_courses_ever_made(increment=1)
 
 		if ('delete_course' in request.POST): #If the form that we submitted has the name 'delete_course'
@@ -124,16 +130,24 @@ def courses(request):
 			course_id = request.POST['course_id'] #Get the ID of the course. This is stored in a input tag of type='hidden'
 			return HttpResponseRedirect("course_"+course_id + "/edit_course")
 
-	course_list = Course.objects.all()
+	course_list = request.user.course.all()
 	return render(request, 'pages/courses.html', {'course_list': course_list})
 
 
 #Currently a placeholder function for handling course editing
 def edit_course(request, course_id):
 	course = get_object_or_404(Course, pk=course_id)
-	if (request.method == "POST"):
-		print(request.POST) #affect course here
-	return render(request, 'pages/edit_course.html', {'course': course})
+	form = CourseForm(request.POST, instance = course)
+	if request.method == "POST":
+		if form.is_valid():
+			course = form.save(commit = False)
+			course.course = course
+			course.save()
+
+			return redirect("/courses/")
+		else:
+			form = CourseForm(instance =course)
+	return render(request, 'pages/edit_course.html',{"form": form} )
 
 def tos(request):
 	return HttpResponse("Terms of Service")
