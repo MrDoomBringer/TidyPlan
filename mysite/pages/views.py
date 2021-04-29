@@ -134,6 +134,7 @@ def edit_course(request, course_id):
 			course = form.save(commit = False)
 			course.course = course
 			course.save()
+
 			return redirect("/courses/")
 		else:
 			form = CourseForm(instance =course)
