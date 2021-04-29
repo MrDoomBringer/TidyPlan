@@ -25,6 +25,10 @@ def howto(request):
 def account(request):
 	return HttpResponse("Account Page")
 
+def fullcalendar(request):
+	template_name = 'pages/fullcalendar.html'
+	return render(request, template_name)
+
 def register(response):
 	if response.method == "POST":
 		form = UserCreationForm(response.POST)
