@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import User, Task, WebsiteMeta, Course
+from .models import Task, WebsiteMeta, Course
 
 import random, math
 
@@ -110,6 +110,7 @@ def courses(request):
 			c.name = f'Untitled Course {total_courses_ever_made()}'
 			c.color = f"hsl({random.randint(0, 360)}, {random.randint(25, 95)}%, {random.randint(85, 95)}%"
 			c.save()
+			request.user.course.add(c)
 			total_courses_ever_made(increment=1)
 
 		if ('delete_course' in request.POST): #If the form that we submitted has the name 'delete_course'
@@ -120,7 +121,7 @@ def courses(request):
 			course_id = request.POST['course_id'] #Get the ID of the course. This is stored in a input tag of type='hidden'
 			return HttpResponseRedirect("course_"+course_id + "/edit_course")
 
-	course_list = Course.objects.all()
+	course_list = request.user.course.all()
 	return render(request, 'pages/courses.html', {'course_list': course_list})
 
 
