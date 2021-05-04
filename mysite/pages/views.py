@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Task, WebsiteMeta, Course
+from django.contrib.auth.forms import UserCreationForm
 
 import random, math
 
