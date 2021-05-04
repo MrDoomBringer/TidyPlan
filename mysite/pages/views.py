@@ -7,6 +7,8 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Task, WebsiteMeta, Course
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 
 import random, math
@@ -39,7 +41,7 @@ def register(response):
 		return redirect("/")
 	else:
 		form = UserCreationForm()
-	return render(response, "register/register.html", {"form": form})
+	return render(response, "registration/register.html", {"form": form})
 
 #See tasks.html for related HTML code
 def calendar(request):
