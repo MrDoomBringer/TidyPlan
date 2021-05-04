@@ -119,6 +119,8 @@ def edit_task(request, task_id):
 
 #Very similar to the calendar view function above
 def courses(request):
+	if (request.user.is_anonymous):
+		return HttpResponseRedirect("/login")
 	if (request.method == "POST"):
 		if ('new_course' in request.POST): #If the form that we submitted has the name 'new_course'
 			check_websitemeta()
