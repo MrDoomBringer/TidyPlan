@@ -1,5 +1,6 @@
 from django import forms
 from .models import Course, Task
+from django.utils import timezone
 
 class CourseForm(forms.ModelForm):
 	class Meta:
@@ -8,7 +9,7 @@ class CourseForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
 	class Meta:
 		model = Task
-		fields = ('description_text',)
+		fields = ('description_text','due_date')
 
 class CreateNewList(forms.Form):
 	name = forms.CharField(label = "Name", max_length = 200)
