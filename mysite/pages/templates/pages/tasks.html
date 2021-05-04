@@ -8,6 +8,7 @@
 		<button class = "addtaskbutton" type="submit", name='new_task'>
 			<i class="material-icons">add_circle</i>
 		</button>
+				<button class = "viewcalendarbutton", type="button"><a href="/fullcalendar">View Calendar</a></button>
 	</form>
 	{% if tsk_list %} <!--If there's any data in the task list (tsk_list is sent here by python in the views.py calendar function's return statement)-->
 		<h1>{{tsk_list.name_text}}</h1>
