@@ -30,7 +30,8 @@ def account(request):
 
 def fullcalendar(request):
 	template_name = 'pages/fullcalendar.html'
-	return render(request, template_name)
+	task_list = Task.objects.all()
+	return render(request, template_name, {'task_list': task_list})
 
 def register(response):
 	if response.method == "POST":
