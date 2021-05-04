@@ -1,125 +1,48 @@
-<html>
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css"/>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
+{% extends "./base.html"%}
+{%block title %}Full Calendar{% endblock %}
+
+{% block content %}
+  <head>
+    <meta charset='utf-8' />
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.js'></script>
+
     <script>
 
-        $(document).ready(function () {
-            var calendar = $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
-                events: [
-                    {% for event in events %}
-                        {
-                            title: "{{ event.name}}",
-                            start: '{{ event.start|date:"Y-m-d" }}',
-                            end: '{{ event.end|date:"Y-m-d" }}',
-                            id: '{{ event.id }}',
-                        },
-                    {% endfor %}
-                ],
-                selectable: true,
-                selectHelper: true,
-                editable: true,
-                eventLimit: true,
-                select: function (start, end, allDay) {
-                    var title = prompt("Enter Event Title");
-                    if (title) {
-                        var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-                        var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-                        $.ajax({
-                            type: "GET",
-                            url: '/add_event',
-                            data: {'title': title, 'start': start, 'end': end},
-                            dataType: "json",
-                            success: function (data) {
-                                calendar.fullCalendar('refetchEvents');
-                                alert("Added Successfully");
-                            },
-                            failure: function (data) {
-                                alert('There is a problem!!!');
-                            }
-                        });
-                    }
-                },
-                eventResize: function (event) {
-                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
-                    var title = event.title;
-                    var id = event.id;
-                    $.ajax({
-                        type: "GET",
-                        url: '/update',
-                        data: {'title': title, 'start': start, 'end': end, 'id': id},
-                        dataType: "json",
-                        success: function (data) {
-                            calendar.fullCalendar('refetchEvents');
-                            alert('Event Update');
-                        },
-                        failure: function (data) {
-                            alert('There is a problem!!!');
-                        }
-                    });
-                },
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
 
-                eventDrop: function (event) {
-                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
-                    var title = event.title;
-                    var id = event.id;
-                    $.ajax({
-                        type: "GET",
-                        url: '/update',
-                        data: {'title': title, 'start': start, 'end': end, 'id': id},
-                        dataType: "json",
-                        success: function (data) {
-                            calendar.fullCalendar('refetchEvents');
-                            alert('Event Update');
-                        },
-                        failure: function (data) {
-                            alert('There is a problem!!!');
-                        }
-                    });
-                },
+          headerToolbar: {
+            start: 'prev,next today',
+            center: 'title',
+            end: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          events: [
+            {
+              title: 'Study for CS exam',
+              start: '2021-05-05T16:00:00',
+              end: '2021-05-05T18:00:00',
+            },
+            {
+              title: 'Take CS exam.',
+              start: '2021-05-07T16:00:00',
+              end: '2021-05-05T17:30:00',
+            }
+          ],
+          nowIndicator: true,
+          initialView: 'dayGridMonth',
+          selectable: true,
 
-                eventClick: function (event) {
-                    if (confirm("Are you sure you want to remove it?")) {
-                        var id = event.id;
-                        $.ajax({
-                            type: "GET",
-                            url: '/remove',
-                            data: {'id': id},
-                            dataType: "json",
-                            success: function (data) {
-                                calendar.fullCalendar('refetchEvents');
-                                alert('Event Removed');
-                            },
-                            failure: function (data) {
-                                alert('There is a problem!!!');
-                            }
-                        });
-                    }
-                },
-
-            });
         });
 
+        calendar.render();
+      });
+
     </script>
-</head>
-<body>
-<br/>
-<h2 align="center"><a href="#">title</a></h2>
-<br/>
-<div class="container">
-    <div id="calendar"></div>
-</div>
-</body>
-</html>
+  </head>
+  <body>
+    <div id='calendar'></div>
+  </body>
+{% endblock %}
