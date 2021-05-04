@@ -104,7 +104,7 @@ def update_subtasks(task: Task):
 			subtask.save()
 			time_remaining -= block_time
 
-#Currently a placeholder function for handling task editing
+#function for handling task editing
 def edit_task(request, task_id):
 	task = get_object_or_404(Task, pk=task_id)
 	form = TaskForm(request.POST, instance = task)
@@ -142,7 +142,7 @@ def courses(request):
 	return render(request, 'pages/courses.html', {'course_list': course_list})
 
 
-#Currently a placeholder function for handling course editing
+# function for handling course editing
 def edit_course(request, course_id):
 	course = get_object_or_404(Course, pk=course_id)
 	form = CourseForm(request.POST, instance = course)
