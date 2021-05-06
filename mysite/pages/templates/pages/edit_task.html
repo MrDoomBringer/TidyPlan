@@ -6,11 +6,13 @@
 {% block content %}
 <h1>Edit Tasks</h1>
 <br/><br/>
-
+<div class="formContainer">
 	<form method = "POST" class = "form-group">
 		{% csrf_token %}
 		{{ form|crispy }}
-		<button types = "submit" class = "btn btn-success">Update Tasks</button>
+		<div class="centerButton">
+			<button types = "submit" class = "button1">Update Tasks <i class="material-icons">done</i></button>
+		</div>
 	</form>
-
+</div>
 {% endblock %}
