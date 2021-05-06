@@ -10,25 +10,26 @@ from .models import Task, WebsiteMeta, Course
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpRequest
 
 import random, math
 
-def index(request):
+def index(request: HttpRequest):
 	template_name = 'pages/base.html'
 	return render(request, template_name)
-def about(request):
+def about(request: HttpRequest):
 	template_name = 'pages/about.html'
 	return render(request, template_name)
-def faq(request):
+def faq(request: HttpRequest):
 	return HttpResponse("FAQ")
 
-def howto(request):
+def howto(request: HttpRequest):
 	return HttpResponse("How To")
 
-def account(request):
+def account(request: HttpRequest):
 	return HttpResponse("Account Page")
 
-def fullcalendar(request):
+def fullcalendar(request: HttpRequest):
 	template_name = 'pages/fullcalendar.html'
 	return render(request, template_name)
 
@@ -44,7 +45,9 @@ def register(response):
 	return render(response, "registration/register.html", {"form": form})
 
 #See tasks.html for related HTML code
-def calendar(request):
+def calendar(request: HttpRequest):
+	if (request.user.is_anonymous):
+		return HttpResponseRedirect("/login")
 	if (request.method == "POST"):
 		if ('new_task' in request.POST): #If the form that we submitted has the name 'new_task'
 			check_websitemeta()
@@ -53,30 +56,33 @@ def calendar(request):
 			t.time_estimate = 165 #Almost three hours
 			t.due_date = timezone.now() + timezone.timedelta(days = 10) #Due ten days from now by default
 			t.save()
-			update_subtasks(t)
+			request.user.task.add(t)
+			update_subtasks(request, t)
 			total_tasks_ever_made(increment=1)
 			return HttpResponseRedirect("/calendar") #Need this return to avoid 'confirm form resubmission' thing
 
 		if ('delete_task' in request.POST): #If the form that we submitted has the name 'delete_task'
 			id_to_delete = request.POST['task_id'] #Get the ID of the task. This is stored in a input tag of type='hidden'
-			Task.objects.filter(id=id_to_delete).delete()
+			request.user.task.filter(id=id_to_delete).delete()
 			return HttpResponseRedirect("/calendar")
 
 		if ('edit_task' in request.POST): #If the form that we submitted has the name 'edit_task'
 			task_id = request.POST['task_id'] #Get the ID of the task. This is stored in a input tag of type='hidden'
 			return HttpResponseRedirect("task_"+task_id + "/edit_task")
 
-	course_list = Course.objects.all()
-	tsk_list = Task.objects.all().order_by('-due_date')
+	course_list = request.user.course.all()
+	tsk_list = request.user.task.all().order_by('-due_date')
 	return render(request, 'pages/tasks.html', {'tsk_list': tsk_list, 'course_list': course_list})
 
 #Add subtasks to an existing task
 #Subtasks are blocks of automatically scheduled time for someone to work on a larger task 
 #Amount of subtasks changes depending on the time estimate of the task,
 #and how long each subtask is (defined by the block_time variable)
-def update_subtasks(task: Task):
+def update_subtasks(request: HttpRequest, task: Task):
+	if (request.user.is_anonymous):
+		return
 	#Clear any currently existing subtasks, if they exist
-	for subtask in task.subtasks.all():
+	for subtask in request.user.task.all():
 		subtask.delete()
 	block_time = 60 #Time in minutes. This means Subtasks are 1 hour blocks of time
 	time_remaining = task.time_estimate
@@ -101,6 +107,7 @@ def update_subtasks(task: Task):
 				subtask.time_estimate = time_remaining
 			subtask.due_date = timezone.now() + (days_between_subtasks * i) #TODO: Smarter timedelta based on schedule, etc
 			subtask.save()
+			request.user.task.add(subtask)
 			time_remaining -= block_time
 
 #Currently a placeholder function for handling task editing
@@ -112,14 +119,14 @@ def edit_task(request, task_id):
 			task = form.save(commit = False)
 			task.task = task
 			task.save()
-			update_subtasks(task)
+			update_subtasks(request, task)
 			return redirect('/calendar/')
 		else:
 			form = TaskForm(instance = task)
 	return render(request, 'pages/edit_task.html', {"form": form})
 
 #Very similar to the calendar view function above
-def courses(request):
+def courses(request: HttpRequest):
 	if (request.user.is_anonymous):
 		return HttpResponseRedirect("/login")
 	if (request.method == "POST"):
@@ -145,7 +152,7 @@ def courses(request):
 
 
 #Currently a placeholder function for handling course editing
-def edit_course(request, course_id):
+def edit_course(request: HttpRequest, course_id):
 	course = get_object_or_404(Course, pk=course_id)
 	form = CourseForm(request.POST, instance = course)
 	if request.method == "POST":
@@ -159,7 +166,7 @@ def edit_course(request, course_id):
 			form = CourseForm(instance =course)
 	return render(request, 'pages/edit_course.html',{"form": form} )
 
-def tos(request):
+def tos(request: HttpRequest):
 	return HttpResponse("Terms of Service")
 
 #Function for handling view for creating todo lists

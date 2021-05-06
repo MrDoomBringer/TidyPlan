@@ -19,6 +19,7 @@ class Course(models.Model):
         return self.name
 
 class Task(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "task", null = True)
     complete = models.BooleanField(default=False)
     todo_list = models.ForeignKey(ToDoList, null=True, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, related_name="courses", null=True, on_delete=models.CASCADE)
