@@ -7,13 +7,18 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Task, WebsiteMeta, Course
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 
 import random, math
 
 def index(request):
 	template_name = 'pages/base.html'
 	return render(request, template_name)
-
+def about(request):
+	template_name = 'pages/about.html'
+	return render(request, template_name)
 def faq(request):
 	return HttpResponse("FAQ")
 
@@ -22,6 +27,22 @@ def howto(request):
 
 def account(request):
 	return HttpResponse("Account Page")
+
+def fullcalendar(request):
+	template_name = 'pages/fullcalendar.html'
+	task_list = Task.objects.all()
+	return render(request, template_name, {'task_list': task_list})
+
+def register(response):
+	if response.method == "POST":
+		form = UserCreationForm(response.POST)
+		if form.is_valid():
+			form.save()
+
+		return redirect("/")
+	else:
+		form = UserCreationForm()
+	return render(response, "registration/register.html", {"form": form})
 
 #See tasks.html for related HTML code
 def calendar(request):
@@ -83,7 +104,7 @@ def update_subtasks(task: Task):
 			subtask.save()
 			time_remaining -= block_time
 
-#Currently a placeholder function for handling task editing
+#function for handling task editing
 def edit_task(request, task_id):
 	task = get_object_or_404(Task, pk=task_id)
 	form = TaskForm(request.POST, instance = task)
@@ -121,7 +142,7 @@ def courses(request):
 	return render(request, 'pages/courses.html', {'course_list': course_list})
 
 
-#Currently a placeholder function for handling course editing
+# function for handling course editing
 def edit_course(request, course_id):
 	course = get_object_or_404(Course, pk=course_id)
 	form = CourseForm(request.POST, instance = course)

@@ -1,0 +1,46 @@
+
+{% extends "./base.html"%}
+{%block title %}Full Calendar{% endblock %}
+
+{% block content %}
+  <head>
+    <meta charset='utf-8' />
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.js'></script>
+
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+
+          headerToolbar: {
+            start: 'prev,next today',
+            center: 'title',
+            end: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          events: [
+            {% for i in task_list %}
+                {
+                    title: "{{ i.description_text}}",
+                    start: '{{ i.due_date|date:"Y-m-d" }}',
+                    end: '{{ i.due_date|date:"Y-m-d" }}',
+
+                },
+            {% endfor %}
+          ],
+          nowIndicator: true,
+          initialView: 'dayGridMonth',
+          selectable: true,
+
+        });
+
+        calendar.render();
+      });
+
+    </script>
+  </head>
+  <body>
+    <div id='calendar'></div>
+  </body>
+{% endblock %}
