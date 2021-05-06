@@ -29,8 +29,19 @@
         <div class="category" style="border-color:rgb(88,255,144)">
 			<a href="/courses">My Courses</a>
 		</div>
-        <div class="small brown-button" style="align-self: flex-start;">
-			<a href="/login">Login</a>
+		<div style="align-self: flex-start;">
+			<div class="small brown-button" >
+				{%if user.username %}
+				<a href="/logout">Logout</a>
+				{% else %}
+				<a href="/login">Login</a>
+				{%endif%}
+			</div>
+			{%if user.username %}
+			<div class="small" style="align-self: flex-end;">
+				<a href="/account">Logged in as: {{user.username}}</a>
+			</div>
+			{%endif%}
 		</div>
     </div>
 	<div class="content">
