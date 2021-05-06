@@ -20,16 +20,14 @@
             end: 'dayGridMonth,timeGridWeek,timeGridDay'
           },
           events: [
-            {
-              title: 'Study for CS exam',
-              start: '2021-05-05T16:00:00',
-              end: '2021-05-05T18:00:00',
-            },
-            {
-              title: 'Take CS exam.',
-              start: '2021-05-07T16:00:00',
-              end: '2021-05-05T17:30:00',
-            }
+            {% for i in task_list %}
+                {
+                    title: "{{ i.description_text}}",
+                    start: '{{ i.due_date|date:"Y-m-d" }}',
+                    end: '{{ i.due_date|date:"Y-m-d" }}',
+
+                },
+            {% endfor %}
           ],
           nowIndicator: true,
           initialView: 'dayGridMonth',
