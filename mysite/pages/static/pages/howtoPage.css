@@ -1,0 +1,28 @@
+.contentContainer {
+    font-family: "Open Sans";
+    margin:auto;
+    margin-top:5%;
+    width:75%;
+}
+
+.textContainer {
+    padding:10px 20px;
+    background-color: #efefef;
+    margin: 0 auto;
+}
+
+h4 {
+    font-family: Sawarabi Mincho;
+    margin: 10px 0;
+    font-size: 1.5em;
+}
+
+a.contentContainer{
+    color: rgb(240,157,81);
+    font-family: Sawarabi Mincho;
+    display: inline;
+}
+
+a.contentContainer:hover{
+    color: rgb(255,119,89);
+}
