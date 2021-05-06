@@ -112,6 +112,7 @@ def edit_task(request, task_id):
 			task = form.save(commit = False)
 			task.task = task
 			task.save()
+			update_subtasks(task)
 			return redirect('/calendar/')
 		else:
 			form = TaskForm(instance = task)
