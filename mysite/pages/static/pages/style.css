@@ -18,6 +18,12 @@ h2 {
 	font-size: 2em;
 }
 
+.account_div {
+	width:50%;
+	margin: auto;
+	text-align: center;
+}
+
 .taskbutton {
 	border: none;
 	text-align: center;
