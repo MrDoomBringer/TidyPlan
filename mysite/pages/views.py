@@ -6,9 +6,9 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import Task, WebsiteMeta, Course
+from .models import Task, WebsiteMeta, Course, UserData
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import get_user, login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpRequest
 
@@ -27,7 +27,11 @@ def howto(request: HttpRequest):
 	return HttpResponse("How To")
 
 def account(request: HttpRequest):
-	return HttpResponse("Account Page")
+	if (request.user.is_anonymous):
+		return HttpResponseRedirect("/login")
+	template_name = 'pages/account.html'
+	points = get_user_points(request.user)
+	return render(request, template_name, {'points': points})
 
 def fullcalendar(request: HttpRequest):
 	template_name = 'pages/fullcalendar.html'
@@ -64,7 +68,12 @@ def calendar(request: HttpRequest):
 
 		if ('delete_task' in request.POST): #If the form that we submitted has the name 'delete_task'
 			id_to_delete = request.POST['task_id'] #Get the ID of the task. This is stored in a input tag of type='hidden'
-			request.user.task.filter(id=id_to_delete).delete()
+			task = request.user.task.filter(id=id_to_delete)
+			if (task[0].is_subtask):
+				print("wooho!")
+				edit_user_points(request.user, 5)
+			task.delete()
+			
 			return HttpResponseRedirect("/calendar")
 
 		if ('edit_task' in request.POST): #If the form that we submitted has the name 'edit_task'
@@ -83,7 +92,7 @@ def update_subtasks(request: HttpRequest, task: Task):
 	if (request.user.is_anonymous):
 		return
 	#Clear any currently existing subtasks, if they exist
-	for subtask in request.user.task.all():
+	for subtask in task.subtasks.all():
 		subtask.delete()
 	block_time = 60 #Time in minutes. This means Subtasks are 1 hour blocks of time
 	time_remaining = task.time_estimate
@@ -210,3 +219,20 @@ def total_courses_ever_made(increment = 0):
 	wm.total_courses_created += increment
 	wm.save()
 	return wm.total_courses_created
+
+def edit_user_points(user, value):
+	if (user.is_anonymous):
+		return 0
+	get_user_points(user)
+	data = user.user_data.all()[0]
+	data.points += value
+	data.save()
+
+def get_user_points(user):
+	if (user.is_anonymous):
+		return 0
+	if (len(user.user_data.all()) == 0):
+		newData = UserData()
+		newData.save()
+		user.user_data.add(newData)
+	return user.user_data.all()[0].points

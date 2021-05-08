@@ -32,6 +32,10 @@ class Task(models.Model):
     def __str__(self):
         return self.description_text
 
+class UserData(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "user_data", null = True)
+    points = models.IntegerField(default=0)
+
 class WebsiteMeta(models.Model):		
     total_tasks_created = models.IntegerField(default = 0)
     total_courses_created = models.IntegerField(default = 0)
