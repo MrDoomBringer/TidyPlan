@@ -28,9 +28,12 @@ class Task(models.Model):
     time_estimate = models.IntegerField(default=0)
     initial_subtask_count = models.IntegerField(default=0)
     is_subtask = models.BooleanField(default=False)
+    courses = models.ManyToManyField(to=Course)
     parent_task = models.ForeignKey('self', related_name="subtasks", null=True, on_delete=models.CASCADE)
     def __str__(self):
         return self.description_text
+
+
 
 class UserData(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "user_data", null = True)
