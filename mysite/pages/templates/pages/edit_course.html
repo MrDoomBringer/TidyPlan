@@ -7,11 +7,14 @@
 {% block content %}
 <h1>Edit Courses</h1>
 <br/><br/>
-
+<div class="formContainer">
 	<form method = "POST" class = "form-group">
 		{% csrf_token %}
 		{{ form|crispy }}
-		<button types = "submit" class = "btn btn-success">Update Courses</button>
+		<div class="centerButton">
+			<button types = "submit">Update Courses <i class="material-icons">done</i></button>
+		</div>
 	</form>
+</div>
 {% endblock %}
 
