@@ -62,13 +62,8 @@ h2 {
    cursor: pointer;
 }
 
-.coursebutton:hover {
-    background-color: #FFFF00;
-    color: black;
-}
-
-button:hover {
-	color: blue;
+button:hover, .coursefilterbutton:hover, .coursebutton:hover{
+	color: rgb(255,119,89);
 }
 
 .tasklist{ 

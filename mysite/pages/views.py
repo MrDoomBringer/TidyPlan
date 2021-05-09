@@ -24,7 +24,8 @@ def faq(request: HttpRequest):
 	return HttpResponse("FAQ")
 
 def howto(request: HttpRequest):
-	return HttpResponse("How To")
+	template_name = 'pages/howto.html'
+	return render(request, template_name)
 
 def account(request: HttpRequest):
 	if (request.user.is_anonymous):
