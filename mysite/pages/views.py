@@ -17,9 +17,11 @@ import random, math
 def index(request: HttpRequest):
 	template_name = 'pages/base.html'
 	return render(request, template_name)
+
 def about(request: HttpRequest):
 	template_name = 'pages/about.html'
 	return render(request, template_name)
+
 def faq(request: HttpRequest):
 	return HttpResponse("FAQ")
 
